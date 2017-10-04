@@ -1,0 +1,19 @@
+.btn-small {
+    height: 24px;
+    line-height: 24px;
+    padding: 0 0.5rem;
+}
+
+#container {
+  padding-left: 300px;
+}
+
+#content {
+  padding: 20px;
+}
+
+@media only screen and (max-width : 992px) {
+  #container {
+    padding-left: 0px;
+  }
+}
