@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.transaction.Transactional;
 
 import com.myshop.model.Product;
+import com.myshop.util.PaginationModel;
 
 public interface ProductDao {
 
@@ -18,7 +19,7 @@ public interface ProductDao {
 	
 	public List<Product> findByIds(Set<Integer> ids);
 	
-	public List<Product> findByType(int type);
+	public PaginationModel<Product> findByTypeAndPage(int type, int page);
 	
 	public void delete(int productId);
 

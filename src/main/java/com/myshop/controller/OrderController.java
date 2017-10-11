@@ -20,6 +20,8 @@ import com.myshop.dao.ProductDao;
 import com.myshop.dao.ProductInOrderDao;
 import com.myshop.model.Order;
 import com.myshop.model.ProductInOrder;
+import com.myshop.model.enums.DeliveryType;
+import com.myshop.model.enums.PaidType;
 
 @Controller
 @RequestMapping("/order")
@@ -70,7 +72,8 @@ public class OrderController {
 	
 	@RequestMapping("/cards")
 	public String view(Model model){
-		OrderBean bean = new OrderBean();
+		model.addAttribute("deliveryTypes", DeliveryType.values());
+		model.addAttribute("paidTypes", PaidType.values());
 		model.addAttribute("orders",orderDao.findAll());
 		return "/HTML/orders";
 	}

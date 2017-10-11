@@ -31,6 +31,7 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
 	}
 
 	@Override
+	@Transactional
 	public List<ProductType> findAll() {
 		Session session = sessionFactory.getCurrentSession();
 		List<ProductType> result =(List<ProductType>) session.createQuery("from ProductType").list();
@@ -49,9 +50,10 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
 	}
 
 	@Override
+	@Transactional
 	public ProductType findById(int productId) {
 		Session session = sessionFactory.getCurrentSession();
-		ProductType productType = (ProductType) session.load(ProductType.class, productId);
+		ProductType productType = (ProductType) session.get(ProductType.class, productId);
 		return productType;
 	}
 

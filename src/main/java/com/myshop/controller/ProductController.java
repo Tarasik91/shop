@@ -51,9 +51,16 @@ public class ProductController {
 		return "HTML/listing_2";
 	}
 
-	@RequestMapping(value = "/productCategory/{id}", method = RequestMethod.GET)
-	public String getCardsByCategory(HttpServletRequest request, Model uiModel, @PathVariable("id") int categoryId) {
-		service.viewByCategory(request, uiModel, categoryId);
+//	@RequestMapping(value = "/productCategory/{id}", method = RequestMethod.GET)
+//	public String getCardsByCategory(HttpServletRequest request, Model uiModel, @PathVariable("id") int categoryId) {
+//		service.viewByCategory(request, uiModel, categoryId);
+//		return "HTML/listing_2";
+//	}
+//	
+	@RequestMapping(value = "/type/{id}/page/{pageNumber}", method = RequestMethod.GET)
+	public String getCardsByCategoryAndPage(HttpServletRequest request, Model uiModel, @PathVariable("id") int categoryId, 
+			@PathVariable("pageNumber") int pageNumber) {
+		service.viewByTypeAndPage(request, uiModel, categoryId, pageNumber);
 		return "HTML/listing_2";
 	}
 }

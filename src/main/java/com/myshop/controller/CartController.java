@@ -25,6 +25,8 @@ import com.myshop.dao.ProductTypeDao;
 import com.myshop.model.Product;
 import com.myshop.model.ProductInBasket;
 import com.myshop.model.ProductType;
+import com.myshop.model.enums.DeliveryType;
+import com.myshop.model.enums.PaidType;
 
 @Controller
 @RequestMapping("/cart")
@@ -106,7 +108,9 @@ public class CartController {
 	}
 	
 	@RequestMapping("/checkout")
-	public String getCheckout(Model uiModel){
+	public String getCheckout(Model model){
+		model.addAttribute("deliveryTypes", DeliveryType.values());
+		model.addAttribute("paidTypes", PaidType.values());
 		return "HTML/checkout";
 	}	
 }

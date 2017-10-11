@@ -25,6 +25,12 @@ public class Product {
 	@Column
 	private double sellingPrice;
 
+	@Column
+	private String color;
+
+	@Column
+	private String size;
+	
 	@Column(name = "description")
 	private String description;
 	
@@ -81,6 +87,22 @@ public class Product {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
 	}
 
 }

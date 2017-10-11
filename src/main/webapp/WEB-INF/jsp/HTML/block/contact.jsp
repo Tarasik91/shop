@@ -4,12 +4,12 @@
 		<table width="100%" cellpadding="0" cellspacing="0" border="0">
 			<tr>
 				<td valign="middle"><span class="s_icon_32"><span
-						class="s_icon s_phone_32"></span>5234452 <br /></span></td>
+						class="s_icon s_phone_32"></span>+380680334666 <br /></span></td>
 				<td valign="middle"><span class="s_icon_32"><span
-						class="s_icon s_fax_32"></span>5234452 <br /></span></td>
+						class="s_icon s_fax_32"></span>+380680334666 <br /></span></td>
 				<td valign="middle"><span class="s_icon_32"><span
-						class="s_icon s_mail_32"></span>pinko@example.com <br />
-						pinko@example.com</span></td>
+						class="s_icon s_mail_32"></span>shopmalyatko@gmail.com
+						</td>
 				<td valign="middle"><span class="s_icon_32"><span
 						class="s_icon s_skype_32"></span>my_skype <br /> </span></td>
 			</tr>

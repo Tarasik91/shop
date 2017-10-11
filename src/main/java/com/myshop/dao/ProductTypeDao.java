@@ -2,6 +2,8 @@ package com.myshop.dao;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import com.myshop.model.ProductType;
 
 public interface ProductTypeDao {

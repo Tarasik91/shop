@@ -71,7 +71,7 @@
 		<div id="header" class="container_12">
 			<div class="grid_12">
 
-				<a id="site_logo" href="index.html">Shoppica store - Premium
+				<a id="site_logo" href="/myshop/">Shoppica store - Premium
 					e-Commerce Theme</a>
 
 			<%@include file="block/links.jsp"%>
@@ -108,9 +108,9 @@
 
 			<div id="product" class="grid_12">
 				<div id="product_images" class="grid_6 alpha">
-					<c:url var="imgUrl" value="${product.photoPath}" />
 					<a id="product_image_preview" rel="prettyPhoto[gallery]"
-						href="${imgUrl }"><img id="image" src="${imgUrl }"
+						href="${pageContext.request.contextPath}${product.photoPath}">
+						<img id="image" src="${pageContext.request.contextPath}${product.photoPath}"
 						title="Leica M7" alt="Leica M7" /></a>
 				</div>
 				<div id="product_info" class="grid_6 omega">
@@ -120,11 +120,11 @@
 					<dl class="clearfix">
 						<dt>В наявності</dt>
 						<dd>є на стані</dd>
-						<dt>Модель</dt>
-						<dd>Product 4</dd>
-						<dt>Виробник</dt>
+						<dt>Розмір</dt>
+						<dd>${product.size }</dd>
+						<dt>Колір</dt>
 						<dd>
-							<a href="#">Canon</a>
+							${product.color }
 						</dd>
 						<dt>Середній рейтинг</dt>
 						<dd>
@@ -133,18 +133,7 @@
 							</p>
 						</dd>
 					</dl>
-					<div id="product_share" class="clearfix">
-						<!-- AddThis Button BEGIN -->
-						<div class="addthis_toolbox addthis_default_style ">
-							<a class="addthis_button_facebook_like"
-								fb:like:layout="button_count"></a> <a
-								class="addthis_button_tweet"></a> <a
-								class="addthis_counter addthis_pill_style"></a>
-						</div>
-						<script type="text/javascript"
-							src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4de0eff004042e7a"></script>
-						<!-- AddThis Button END -->
-					</div>
+			
 					<div id="product_options">
 						<h3>Додаткові параметри</h3>
 
@@ -226,7 +215,7 @@
 								<c:forEach items="${product.photos}" var="photo">
 									<li><a class="s_thumb" href="<c:url value = "${photo }"/>"
 										title="Leic" rel="prettyPhoto[gallery]"><img
-											src="<c:url value = "${photo }"/>" width="120"
+											src="${pageContext.request.contextPath}${photo}" width="120"
 											title="Leica M7" alt="Leica M7" /></a></li>
 								</c:forEach>
 							</ul>
@@ -259,9 +248,8 @@
 						<span class="clear s_mb_15"></span>
 						<div class="align_center clearfix">
 							<a class="s_button_1 s_secondary_color_bgr s_ml_0"
-								href="/myshop/cart/view"><span class="s_text">View
-									Cart</span></a> <a class="s_button_1 s_secondary_color_bgr"
-								href="/myshop/cart/checkout"><span class="s_text">Checkout</span></a>
+								href="/myshop/cart/view"><span class="s_text">Корзина</span></a> <a class="s_button_1 s_secondary_color_bgr"
+								href="/myshop/cart/checkout"><span class="s_text">Замовлення</span></a>
 						</div>
 
 					</div>

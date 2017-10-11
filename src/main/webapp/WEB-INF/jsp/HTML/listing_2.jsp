@@ -39,7 +39,7 @@
 		<div id="header" class="container_12">
 			<div class="grid_12">
 
-				<a id="site_logo" href="index.html">Shoppica store - Premium
+				<a id="site_logo" href="/myshop/">Shoppica store - Premium
 					e-Commerce Theme</a>
 
 				<%@include file="block/links.jsp"%>				
@@ -57,9 +57,9 @@
 			<div id="intro_wrap">
 				<div class="container_12">
 					<div id="breadcrumbs" class="grid_12">
-						<a href="index.html">Home</a> &gt; <a href="">Clothing</a>
+						<a href="/myshop/">Home</a> &gt; <a href="">${productType.name }</a>
 					</div>
-					<h1>Clothing</h1>
+					<h1>${productType.name }</h1>
 				</div>
 			</div>
 		</div>
@@ -89,17 +89,7 @@
 							<li><a href="">Model Z - A</a></li>
 						</ul>
 					</div>
-					<div id="view_mode" class="s_nav">
-						<ul class="clearfix">
-							<li id="view_grid" class="s_selected"><a
-								href="listing_2.html"><span class="s_icon"></span>Grid</a></li>
-							<li id="view_list"><a href="listing_1.html"><span
-									class="s_icon"></span>List</a></li>
-						</ul>
-					</div>
 				</div>
-
-				<div class="clear"></div>
 
 				<div class="s_listing s_grid_view clearfix">
 					<c:forEach items="${products}" var="product">
@@ -107,16 +97,14 @@
 							<c:if test="${not empty p}">
 								<div class="s_item grid_3">
 									<a class="s_thumb"
-										href="/myshop/product/view/<c:out value="${p.id}" />"> <c:url
-											var="imgUrl" value="${p.photoPath}" /> <img src="${imgUrl }"
+										href="/myshop/product/view/<c:out value="${p.id}" />"> 
+										<img src="${pageContext.request.contextPath}${p.photoPath}"
 										title="${p.name}" alt="${p.name}" /></a>
 									<h3>
 										<a href="/myshop/product/view/<c:out value="${p.id}" />">${p.name}</a>
 									</h3>
-									<p class="s_model">Product 6</p>
 									<p class="s_price">
 										<span class="s_currency s_before"></span>${p.sellingPrice } ₴
-
 									</p>
 									<p class="s_rating s_rating_5">
 										<span style="width: 60%;" class="s_percent"></span>
@@ -126,6 +114,10 @@
 										<a class="s_button_add_to_cart"
 											href="/myshop/admin/product/edit/<c:out value="${p.id}" />"> 
 											<span class="s_icon"></span>Редагувати									
+										</a>
+										<a class="s_button_add_to_cart"
+											href="/myshop/admin/product/delete/<c:out value="${p.id}" />"> 
+											<span class="s_icon"></span>Видалити									
 										</a>
 									</c:if>
 									<a class="s_button_add_to_cart"
@@ -138,16 +130,25 @@
 						</c:forEach>
 						<div class="clear"></div>
 					</c:forEach>
-
 				</div>
 
 				<div class="pagination">
 					<div class="links">
-						<b>1</b> <a href="">2</a> <a href="">&gt;</a> <a href="">&gt;|</a>
+					<c:forEach var = "i" begin = "${paginationModel.minPageNumber }" end = "${paginationModel.maxPageNumber }">		
+					<c:choose>
+  						<c:when test="${i == paginationModel.page}">	     
+  							<b>${i }</b>
+  						</c:when>
+  						<c:otherwise>	        
+				        	 <a href="/myshop/product/type/${productType.id }/page/<c:out value = "${i}"/>">
+				        	 	<c:out value = "${i}"/></a>	
+				        </c:otherwise>
+				     </c:choose>
+			      	</c:forEach>
+						<a href="/myshop/product/type/${productType.id }/page/${paginationModel.lastPageNumber}">&gt;|</a>
 					</div>
-					<div class="results">Showing 1 to 12 of 20 (2 Pages)</div>
+					<div class="results">Showing ${paginationModel.minPageNumber } to ${paginationModel.maxPageNumber }  of ${paginationModel.lastPageNumber} </div>
 				</div>
-
 			</div>
 
 			<div id="right_col" class="grid_3">
@@ -173,9 +174,8 @@
 						<span class="clear s_mb_15"></span>
 						<div class="align_center clearfix">
 							<a class="s_button_1 s_secondary_color_bgr s_ml_0"
-								href="/myshop/cart/view"><span class="s_text">View
-									Cart</span></a> <a class="s_button_1 s_secondary_color_bgr"
-								href="/myshop/cart/checkout"><span class="s_text">Checkout</span></a>
+								href="/myshop/cart/view"><span class="s_text">Корзина</span></a> <a class="s_button_1 s_secondary_color_bgr"
+								href="/myshop/cart/checkout"><span class="s_text">Замовлення</span></a>
 						</div>
 					</c:if>
 					</div>

@@ -17,12 +17,15 @@ import com.myshop.dao.ProductTypeDao;
 import com.myshop.model.Product;
 import com.myshop.model.ProductInBasket;
 import com.myshop.model.ProductType;
+import com.myshop.util.PaginationModel;
+import com.myshop.util.PaginationUtil;
 
 public class ProductService {
 	@Autowired
 	private  ProductDao productDao;
 	@Autowired
 	private ProductTypeDao productTypeDao;
+	
 	
 	
 	public Model viewProduct(Model uiModel, HttpServletRequest request , int id){
@@ -68,9 +71,13 @@ public class ProductService {
 		uiModel.addAttribute("totalCount", count);
 		return uiModel;
 	}
-	public Model viewByCategory(HttpServletRequest request, Model uiModel, int categoryId){
+	public Model viewByTypeAndPage(HttpServletRequest request, Model uiModel, int categoryId, int pageNumber){
 		HttpSession session = request.getSession();
 		Map<Integer, Integer> map = (Map<Integer, Integer>) session.getAttribute("productIdsMap");
+		Object isAdmin = session.getAttribute("isAdminLogined");
+		if (isAdmin!=null && (Boolean)isAdmin){
+			uiModel.addAttribute("isAdmin", true);
+		}
 		ProductBean bean = new ProductBean();
 		List<ProductType> productTypes = productTypeDao.findAll();	
 		double totalPrice = 0;
@@ -87,7 +94,12 @@ public class ProductService {
 				uiModel.addAttribute("PIB", pib.getProductInBasketBeanList(products, map));
 			}
 		}
-		uiModel.addAttribute("products", bean.getArray(productDao.findByType(categoryId)));
+		ProductType type = productTypeDao.findById(categoryId);
+		uiModel.addAttribute("productType", type);
+		PaginationModel<Product> model = productDao.findByTypeAndPage(categoryId, pageNumber);
+		PaginationUtil.getMaxMinValue(model);
+		uiModel.addAttribute("products", bean.getArray(model.getList()));
+		uiModel.addAttribute("paginationModel", model);
 		uiModel.addAttribute("productTypes", productTypes);
 		uiModel.addAttribute("totalPrice", totalPrice);
 		uiModel.addAttribute("totalCount", count);

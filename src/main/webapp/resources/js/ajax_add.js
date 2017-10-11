@@ -12,7 +12,7 @@ $(document).ready(function () {
             url: '/myshop/cart/removeProduct',
             data :{productId : productId},
             success: function (count) {    
-            	$('#cart_menu div.s_cart_holder').html(data + " items" );
+            	$('#cart_menu div.s_cart_holder').html(count + " items" );
             	$theAnchor.closest("div").remove();
             },
         })
@@ -21,7 +21,7 @@ $(document).ready(function () {
 
     $('.s_button_remove_tr').click(function () {  
         	var productId = $(this).attr("data-product-id");
-    	alert(productId)
+    	
         	var $theAnchor = $(this);
             $.ajax({
                 type: 'get',

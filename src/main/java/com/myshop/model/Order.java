@@ -15,6 +15,8 @@ public class Order {
 	private int id;
 	@Column(name = "status")
 	private int status = 1;
+	@Column(name = "amount")
+	private double amount = 1;
 	@Column(name = "firstName")
 	private String firstName;
 	@Column(name = "lastName")
@@ -67,4 +69,11 @@ public class Order {
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
+	public double getAmount() {
+		return amount;
+	}
+	public void setAmount(double amoubt) {
+		this.amount = amoubt;
+	}
+	
 }

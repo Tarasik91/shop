@@ -4,6 +4,11 @@
 /*****************************************************/
 /******   R E S E T   ********************************/
 /*****************************************************/
+
+select, input, textArea {
+    min-width: 250px;
+}
+
 *, td, th, input, textarea, select, button {
   margin: 0;
   padding: 0;
@@ -492,7 +497,7 @@ input[type=password],
 textarea,
 select
 {
-  padding: 4px;
+  
   background: #eee;
   border: 1px solid;
   border-color: #ddd #eee #eee #ddd;

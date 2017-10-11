@@ -44,6 +44,7 @@
 				<value>com.myshop.model.ProductType</value>
 				<value>com.myshop.model.Order</value>
 				<value>com.myshop.model.ProductInOrder</value>
+				<value>com.myshop.model.ProductQuantity</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -58,6 +59,7 @@
 	<bean id="productTypeDao" class="com.myshop.dao.impl.ProductTypeDaoImpl"></bean>
 	<bean id="OrderDao" class="com.myshop.dao.impl.OrderDaoImpl"></bean>
 	<bean id="productInOrderDao" class="com.myshop.dao.impl.ProductInOrderDaoImpl"></bean>
+	<bean id="productQuantityDao" class="com.myshop.dao.impl.ProductQuantityDaoImpl"></bean>
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
 
