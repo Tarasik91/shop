@@ -24,6 +24,7 @@ public interface ProductDao {
 	public void delete(int productId);
 
 	public List<Product> findAll();
-
+	
+	public List<Product> findByRating();
 
 }

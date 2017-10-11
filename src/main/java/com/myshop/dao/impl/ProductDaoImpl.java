@@ -1,7 +1,5 @@
 package com.myshop.dao.impl;
 
-import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -91,5 +89,14 @@ public class ProductDaoImpl implements ProductDao {
 		long countResults = (Long) countQuery.uniqueResult();
 		model.setCount((int)countResults);
 		return model;
+	}
+
+	@Override
+	@Transactional
+	public List<Product> findByRating() {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("FROM Product item");
+		query.setMaxResults(5);
+		return query.list();
 	}
 }

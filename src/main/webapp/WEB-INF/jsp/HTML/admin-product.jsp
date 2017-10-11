@@ -92,12 +92,12 @@
 							<td></td>
 						</tr>
 						<tr>
-							<td><input name="purchasePrice" type="number"
+							<td><input class = "product-edit" name="purchasePrice" type="number"
 								value="${product.purchasePrice }" /></td>
-							<td><input name="sellingPrice" type="number"
+							<td><input class = "product-edit" name="sellingPrice" type="number"
 								value="${product.sellingPrice }" /></td>
-							<td><select name="productType">
-									<c:forEach items="${productTypes }" var="productType">\
+							<td><select class = "product-edit" name="productType">
+									<c:forEach items="${productTypes }" var="productType">
           						<option value="${productType.id}">${productType.name}</option>
 									</c:forEach>
 							</select></td>
@@ -119,18 +119,18 @@
 							</tr>
 						</c:forEach>
 						<tr>
-							<td><select name="size">
+							<td><select class = "product-edit" name="size">
 									<c:forEach items="${sizes}" var="size">
 										<option value="${size}">${size.name}</option>
 									</c:forEach>
 							</select></td>
-							<td><select name="color">
+							<td><select class = "product-edit" name="color">
 									<c:forEach items="${colors}" var="color">
 										<option value="${color}">${color.name}</option>
 									</c:forEach>
 								</select>
 							</td>
-							<td><input name="quantity" type="number" /></td>
+							<td><input class = "product-edit" name="quantity" type="number" /></td>
 							<td><a href="#" id="addQuantity"><img
 									src="${pageContext.request.contextPath}/resources/images/add.png"
 									alt="Add"> </img></a></td>
@@ -211,11 +211,10 @@
 										function(event) {
 											event.preventDefault();
 
-											var tr = "<tr><td><input name='size' type='text'   /></td>"
-													+ "<td> <input name='color' type='text'  /></td>"
-													+ "<td> <input name='quantity' type='number'  /></td>"
-													+ "<td><a href ='#' id = 'addQuantity'><img src='${pageContext.request.contextPath}/resources/images/add.png' alt='Add'> </img></a></td></tr>";
-											console.log(tr)
+											var tr = "<tr><td><input class = 'product-edit' name='size' type='text'   /></td>"
+													+ "<td> <input  class = 'product-edit' name='color' type='text'  /></td>"
+													+ "<td> <input  class = 'product-edit' name='quantity' type='number'  /></td>"
+													+ "<td><a href ='#' id = 'addQuantity'><img src='${pageContext.request.contextPath}/resources/images/add.png' alt='Add'> </img></a></td></tr>";											
 											$("#productQuantityTable tbody")
 													.append(tr);
 										});

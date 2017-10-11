@@ -31,6 +31,7 @@ import com.myshop.model.Product;
 import com.myshop.model.ProductQuantity;
 import com.myshop.model.enums.Color;
 import com.myshop.model.enums.Size;
+import com.myshop.service.ProductService;
 import com.myshop.util.ImageUtil;
 
 @RequestMapping("/admin/product")
@@ -43,6 +44,10 @@ public class ProductAdminController {
 	private ProductTypeDao productTypeDao;
 	@Autowired
 	private ProductQuantityDao productQuantityDao;
+	
+	@Autowired
+	private ProductService productService;
+	
 	@RequestMapping(value = "/addProduct", method = RequestMethod.POST)
 	public String updateProduct(@RequestParam("name") String name, @RequestParam("purchasePrice") double pPrice,
 			@RequestParam("sellingPrice") double sPrice, @RequestParam("description") String description,
@@ -89,19 +94,8 @@ public class ProductAdminController {
 		ProductBean bean = new ProductBean();
 		if (isAdmin != null && (boolean) isAdmin) {
 			Product product = productDao.findById(id);
-			Map<String, Integer> quantityMap = new HashMap<>();
-			List<ProductQuantity> quantityList = productQuantityDao.findByProduct(product);
-			if (quantityList != null){
-				for(ProductQuantity q : quantityList){
-					String key = q.getColor() + "@@" + q.getSize();
-					Integer quantity = quantityMap.get(key);
-					if (quantity != null){
-						quantityMap.put(key, quantity + q.getQuantity());
-					}else{
-						quantityMap.put(key, q.getQuantity());
-					}
-				}
-			}
+			Map<String, Integer> quantityMap = productService.getQuantity(product);
+			
 			uiModel.addAttribute("sizes",Size.values());
 			uiModel.addAttribute("colors",Color.values());
 			uiModel.addAttribute("productQuantity", quantityMap);

@@ -24,7 +24,7 @@ public class LoginController {
 			if (user.equals("user@ukr.net") && password.equals("password")){
 				HttpSession session = servletRequest.getSession();
 				session.setAttribute("isAdminLogined", true);
-				return "redirect:".concat("/product/cards");				
+				return "redirect:/";				
 			}
 		}
 		return "redirect:admin-page";

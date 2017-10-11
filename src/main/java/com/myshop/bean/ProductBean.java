@@ -3,16 +3,8 @@ package com.myshop.bean;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.transaction.Transactional;
-
-import org.springframework.util.ResourceUtils;
 
 import com.myshop.model.Product;
 import com.myshop.util.ImageUtil;
@@ -22,6 +14,7 @@ public class ProductBean {
 	//public static String IMAGE_PATH = "C:/Users/taras/workspace/myshop/src/main/webapp/resources/image";
 	private int id;
 	private String name;
+	private String description;
 	private double purchasePrice;
 	private double sellingPrice;
 	private ArrayList<String> photos;
@@ -90,8 +83,13 @@ public class ProductBean {
 	public void setTotalPrice(double totalPrice) {
 		this.totalPrice = totalPrice;
 	}
-
 	
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	public String getColor() {
 		return color;
 	}
@@ -151,6 +149,7 @@ public class ProductBean {
 		bean.setSellingPrice(product.getSellingPrice());
 		bean.setColor(product.getColor());
 		bean.setSize(product.getSize());
+		bean.setDescription(product.getDescription());
 		return bean;
 	}
 

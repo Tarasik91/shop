@@ -1,5 +1,6 @@
 package com.myshop.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -13,9 +14,11 @@ import org.springframework.ui.Model;
 
 import com.myshop.bean.ProductBean;
 import com.myshop.dao.ProductDao;
+import com.myshop.dao.ProductQuantityDao;
 import com.myshop.dao.ProductTypeDao;
 import com.myshop.model.Product;
 import com.myshop.model.ProductInBasket;
+import com.myshop.model.ProductQuantity;
 import com.myshop.model.ProductType;
 import com.myshop.util.PaginationModel;
 import com.myshop.util.PaginationUtil;
@@ -25,7 +28,8 @@ public class ProductService {
 	private  ProductDao productDao;
 	@Autowired
 	private ProductTypeDao productTypeDao;
-	
+	@Autowired
+	private ProductQuantityDao productQuantityDao;
 	
 	
 	public Model viewProduct(Model uiModel, HttpServletRequest request , int id){
@@ -40,10 +44,30 @@ public class ProductService {
 				uiModel.addAttribute("PIB", pib.getProductInBasketBeanList(products, map));
 			}
 		}
+		Product product = productDao.findById(id);
+		Map<String, Integer> quantityMap = getQuantity(product);		
 		List<ProductType> productTypes = productTypeDao.findAll();
 		uiModel.addAttribute("productTypes", productTypes);
-		uiModel.addAttribute("product", bean.getProductBean(productDao.findById(id)));
+		uiModel.addAttribute("quantity", quantityMap);
+		uiModel.addAttribute("product", bean.getProductBean(product));
 		return uiModel;
+	}
+	
+	public Map<String, Integer> getQuantity(Product product){
+		Map<String, Integer> quantityMap = new HashMap<>();
+		List<ProductQuantity> quantityList = productQuantityDao.findByProduct(product);
+		if (quantityList != null){
+			for(ProductQuantity q : quantityList){
+				String key = q.getColor() + "@@" + q.getSize();
+				Integer quantity = quantityMap.get(key);
+				if (quantity != null){
+					quantityMap.put(key, quantity + q.getQuantity());
+				}else{
+					quantityMap.put(key, q.getQuantity());
+				}
+			}
+		}
+		return quantityMap;
 	}
 	
 	public Model viewCard(Model uiModel, HttpServletRequest request ){

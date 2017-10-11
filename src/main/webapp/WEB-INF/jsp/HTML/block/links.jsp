@@ -4,7 +4,7 @@
 <div id="system_navigation" class="s_nav">
 	<ul class="s_list_1 clearfix">
 	  	<li><a href="/myshop/">Home</a></li>
-		<li><a href="/myshop/product/cards">Продукти</a></li>
+		<li><a href="/myshop/product/type/1/page/1">Продукти</a></li>
 		<li><a href="/myshop/cart/view">Корзина</a></li>
 		<li><a href="/myshop/order/cards">Заявки</a></li>
 		<c:if test="${isAdmin}">
