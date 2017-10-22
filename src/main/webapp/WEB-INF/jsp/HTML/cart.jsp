@@ -6,8 +6,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en" xml:lang="en" xmlns:fb="http://www.facebook.com/2008/fbml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Your Store</title>
-<meta name="description" content="My Store" />
+<title>Малятко</title>
+<meta name="description" content="Малятко" />
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/stylesheet/960.css" />" media="all" />
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/stylesheet/screen.css" />" media="screen" />
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/stylesheet/color.css" />" media="screen" />
@@ -34,22 +34,8 @@
     
     	<a id="site_logo" href="index.html">Shoppica store - Premium e-Commerce Theme</a> 
 
-      <%@include file="block/links.jsp"%>
-				
+<%@include file="block/links.jsp"%>
 
-      <div id="site_search">
-      	<a id="show_search" href="javascript:;" title="Search:"></a>
-        <div id="search_bar" class="clearfix">
-          <input type="text" id="filter_keyword" />
-          <select id="filter_category_id">
-            <option value="0">All Categories</option>
-            <option value="1">Category 1</option>
-            <option value="2">Category 2</option>
-          </select>
-          <a class="s_button_1 s_secondary_color_bgr"><span class="s_text">Go</span></a> <a class="s_advanced s_main_color" href="">Advanced Search</a>
-        </div>
-      </div>
-      
 <%@include file="block/header.jsp"%>
 				
       
@@ -65,10 +51,10 @@
     <div id="intro_wrap">
       <div class="container_12">
         <div id="breadcrumbs" class="grid_12">
-          <a href="index.html">Home</a>
-           &gt; <a href="cart.html">Basket</a>
+          <a href="/myshop/">Головна</a>
+           &gt; <a href="/myshop/cart/view">Корзина</a>
         </div>
-        <h1>Shopping Cart (0.00kg)</h1>
+        <h1>Корзина</h1>
       </div>
     </div>
   </div>
@@ -82,35 +68,32 @@
   
     <div id="shopping_cart" class="grid_12">
 
-      <form id="cart" class="clearfix" action="/myshop/cart/checkout">
+      <form id="cart" class="clearfix" action="/myshop/cart/checkout" method = "post" >
         <table class="s_table_1" width="100%" cellpadding="0" cellspacing="0" border="0">
           <tr>
-            <th width="65">Remove</th>
-            <th width="60">Image</th>
-            <th width="320">Name</th>     
-            <th>Quantity</th>
-            <th>Unit Price</th>
-            <th>Total</th>
+            <th width="65">Видалити</th>
+            <th width="60">Іконка</th>
+            <th width="320">Назва</th>     
+            <th>Кількість</th>
+            <th>Ціна</th>
+            <th>Загальна</th>
           </tr>
            <c:forEach items="${PIB.productBeans}" var="p">
-             <tr class="even">
-            <td valign="middle"><a class="s_button_remove_tr" data-product-id="${p.id}">&nbsp;</a></td>
-            <c:url var="imgUrl"	value="${p.photoPath}" />
-            <td valign="middle"><a href="/myshop/product/view/<c:out value="${p.id}"/>" ><img src="${imgUrl }" width="60" height="60" alt="Pana" /></a></td>
-            
-            <td valign="middle">${p.name}</td>
-            <td valign="middle"><input type="text" size="3" value = "${p.quantity }"/></td>
-            <td valign="middle">${p.sellingPrice}<span class="s_currency s_after"> ₴</span></td>
-            <td valign="middle">${p.totalPrice}<span class="s_currency s_after"> ₴</span></td>
-          </tr>
-            </c:forEach>
+           <tr class="even product-quantity-cart-row" data-id = "${p.id}">
+	           <td ><input type ="checkbox" class ="remove-product" /></td>
+	           <td valign="middle"><a href="/myshop/product/view/<c:out value="${p.id}"/>" ><img src="${pageContext.request.contextPath}${p.photoPath}" width="60" height="60" alt="Pana" /></a></td> 
+	           <td valign="middle">${p.name}</td>
+	           <td class= "quantity" valign="middle"><input type="text" size="3" value = "${p.quantity }"/></td>
+	           <td class = "sellingPrice" valign="middle">${p.sellingPrice}</td>
+	           <td class = "totalPrice" valign="middle" >${p.totalPrice}</td>
+           </tr>
+           </c:forEach>
         </table>
-        <br />
-        <p class="s_total s_secondary_color last"><strong>Total:</strong> ${PIB.totalPrice }<span class="s_currency s_after">₴</span></p>
-                        
+        <input hidden name = "products" id  = "products"/>
+        <p class="s_total s_secondary_color last"><strong>Total:</strong><span id = "basketPrice"> ${PIB.totalPrice }</span> </p>                
         <div class="clear"></div>
         <br />
-        <button class="s_button_1 s_main_color_bgr" type="submit"><span class="s_text">Checkout</span></button>
+        <button class="s_button_1 s_main_color_bgr" id = "confirm-button" ><span class="s_text">Підтвердити</span></button>
       </form>
 
     </div>

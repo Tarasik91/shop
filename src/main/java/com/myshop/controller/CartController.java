@@ -14,12 +14,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.myshop.bean.MessageBody;
 import com.myshop.bean.ProductBean;
+import com.myshop.bean.ProductInBasketBean;
 import com.myshop.dao.ProductDao;
 import com.myshop.dao.ProductTypeDao;
 import com.myshop.model.Product;
@@ -91,6 +97,7 @@ public class CartController {
 	@RequestMapping(path = "/view", method = RequestMethod.GET)
 	public String getProductFromBasket(Model uiModel, HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
+		
 		Map<Integer, Integer> map = (Map<Integer, Integer>) session.getAttribute("productIdsMap");
 		ProductInBasket pib = new ProductInBasket();
 		if (map != null) {
@@ -107,10 +114,28 @@ public class CartController {
 		return "HTML/cart";
 	}
 	
-	@RequestMapping("/checkout")
-	public String getCheckout(Model model){
+	@RequestMapping(value = "/change",  headers = "Accept=application/json",  method = RequestMethod.POST)
+	@ResponseBody
+	public MessageBody changeProducts(Model model, HttpServletRequest  request,  @RequestBody List<ProductInBasketBean> products){
+		HttpSession session = request.getSession();
+		session.setAttribute("productIdsMap", products);
+		MessageBody body = new MessageBody();
+		body.setMesssage("OK");
+		return body;
+	}
+	
+	@CrossOrigin
+	@RequestMapping(value = "/checkout")
+	public String getCheckout(Model model, HttpServletResponse response, HttpServletRequest request){
+		List<ProductType> productTypes = productTypeDAO.findAll();
+		model.addAttribute("productTypes", productTypes);
 		model.addAttribute("deliveryTypes", DeliveryType.values());
 		model.addAttribute("paidTypes", PaidType.values());
+		response.setHeader("Access-Control-Allow-Origin", "*");
+	    response.setHeader("Access-Control-Allow-Credentials", "true");
+	    response.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+	    response.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+		
 		return "HTML/checkout";
-	}	
+	}
 }

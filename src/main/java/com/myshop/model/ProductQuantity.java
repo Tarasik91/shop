@@ -2,11 +2,15 @@ package com.myshop.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.myshop.model.enums.Color;
+import com.myshop.model.enums.Size;
 
 @Entity
 @Table(name = "product_quantity")
@@ -15,16 +19,18 @@ public class ProductQuantity {
 	@Column(name = "id")
 	@GeneratedValue
 	private int id;
-	
-	@Column
-	private String color;
 
 	@Column
-	private String size;
-	
+	@Enumerated
+	private Color color;
+
+	@Column
+	@Enumerated
+	private Size size;
+
 	@Column
 	private int quantity;
-	
+
 	@OneToOne
 	@JoinColumn(name = "product_id", referencedColumnName = "id")
 	private Product product;
@@ -37,19 +43,19 @@ public class ProductQuantity {
 		this.id = id;
 	}
 
-	public String getColor() {
+	public Color getColor() {
 		return color;
 	}
 
-	public void setColor(String color) {
+	public void setColor(Color color) {
 		this.color = color;
 	}
 
-	public String getSize() {
+	public Size getSize() {
 		return size;
 	}
 
-	public void setSize(String size) {
+	public void setSize(Size size) {
 		this.size = size;
 	}
 
@@ -68,6 +74,5 @@ public class ProductQuantity {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
-	
-	
+
 }

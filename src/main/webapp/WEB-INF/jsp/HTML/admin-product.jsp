@@ -8,13 +8,18 @@
 	xml:lang="en" xmlns:fb="http://www.facebook.com/2008/fbml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Your Store</title>
+<title>Малятко</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
+
+  <!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 <meta name="description" content="My Store" />
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/stylesheet/960.css" />" media="all" />
+ 
+
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/stylesheet/screen.css" />"
 	media="screen" />
@@ -36,6 +41,8 @@
 	src="<c:url value="/resources/js/jquery/jquery.prettyPhoto.js" />"></script>
 <script type="text/javascript"
 	src="<c:url value="/resources/js/shoppica.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/js/admin-product.js"/>"></script>
 
 </head>
 
@@ -67,8 +74,7 @@
 
 			<div class="grid_16">
 
-				<form id="create" class="clearfix"
-					action="/myshop/admin/product/addProduct" method="post">
+				<form id="create" class="clearfix"" method="post">
 					<h2 class="s_title_1">
 						<span class="s_secondary_color">Продукт:</span>Добавити
 					</h2>
@@ -110,13 +116,15 @@
 							<td><strong>Кількість</strong></td>
 							<td></td>
 						</tr>
-						<c:forEach var="entry" items="${productQuantity}">
-							<c:set var="colorSize" value="${fn:split(entry.key, '@@')}" />
-							<tr>
-								<td><c:out value="${colorSize[0]}" /></td>
-								<td><c:out value="${colorSize[1]}" /></td>
-								<td><c:out value="${entry.value}" /></td>
-							</tr>
+						<c:forEach var="entry" items="${quantity}">
+							<c:if test="${entry.value != 0}">
+								<c:set var="colorSize" value="${fn:split(entry.key, '@@')}" />	
+								<tr>
+									<td><c:out value="${sizes[colorSize[1]].name }" /></td>
+									<td><c:out value="${colors[colorSize[0]].name }" /></td>
+									<td><c:out value="${entry.value}" /></td>
+								</tr>
+							</c:if>
 						</c:forEach>
 						<tr>
 							<td><select class = "product-edit" name="size">
@@ -137,23 +145,17 @@
 						</tr>
 					</table>
 
-
-
-					<a class="s_button_1 s_main_color_bgr left"
-						onclick="$('#create').submit();"><span class="s_text">Зберегти</span></a>
+					<a class="s_button_1 s_main_color_bgr left" id = "submit-button"><span class="s_text">Зберегти</span></a>
 				</form>
 				<br />
 			</div>
 		</div>
 		<!-- end of content -->
-
 		<div id="content" class="container_12">
 			<div class="clear"></div>
 			<div id="special_home" class="grid_12">
-
 				<h2 class="s_title_1">Photos</h2>
 				<div class="clear"></div>
-
 
 				<c:if test="${product.id != 0}">
 					<form enctype="multipart/form-data" id="fileUploadForm"
@@ -168,14 +170,19 @@
 						</p>
 					</form>
 					<div id="photoHolder">
-						<ul class="s_thumbs clearfix">
+						<div class="s_listing s_grid_view clearfix">
 							<c:forEach items="${product.photos}" var="photo">
-								<li><a class="s_thumb"
+							<div class="s_item grid_2">
+								
+								<a class="s_thumb"
 									href="${pageContext.request.contextPath}${photo}" title="Leic"><img
-										src="${pageContext.request.contextPath}${photo}" width="120"
-										title="Leica M7" alt="Leica M7" /></a></li>
+										src="${pageContext.request.contextPath}${photo}"
+										title="${photo}" alt="${photo}" /></a>
+								
+								<a class = "removePhoto" class="s_button_add_to_cart" data-product-name = "${photo}" href="#" /><span class="s_icon"></span>Видалити</a>
+								</div>
 							</c:forEach>
-						</ul>
+		
 					</div>
 
 				</c:if>
@@ -202,22 +209,7 @@
 
 </body>
 <script>
-	$(document)
-			.ready(
-					function() {
-						$("#addQuantity")
-								.live(
-										'click',
-										function(event) {
-											event.preventDefault();
 
-											var tr = "<tr><td><input class = 'product-edit' name='size' type='text'   /></td>"
-													+ "<td> <input  class = 'product-edit' name='color' type='text'  /></td>"
-													+ "<td> <input  class = 'product-edit' name='quantity' type='number'  /></td>"
-													+ "<td><a href ='#' id = 'addQuantity'><img src='${pageContext.request.contextPath}/resources/images/add.png' alt='Add'> </img></a></td></tr>";											
-											$("#productQuantityTable tbody")
-													.append(tr);
-										});
 						$("#btnSubmit")
 								.click(
 										function(event) {
@@ -261,6 +253,6 @@
 														}
 													});
 										});
-					});
+					
 </script>
 </html>

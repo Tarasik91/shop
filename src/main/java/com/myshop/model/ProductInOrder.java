@@ -23,7 +23,10 @@ public class ProductInOrder {
 	Product product;
 
 	@Column(name = "quantity")
-	int quantity;
+	private int quantity;
+	
+	@Column(name = "price")
+	private double price;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_id")
@@ -60,4 +63,13 @@ public class ProductInOrder {
 	public void setOrder(Order order) {
 		this.order = order;
 	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	
 }

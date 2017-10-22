@@ -1,8 +1,8 @@
 package com.myshop.model.enums;
 
 public enum DeliveryType {
-	NEW_MAIL("Нова пошта"),
 	UKR_MAIL("Укр пошта"),
+	NEW_MAIL("Нова пошта"),
 	SELF("самовивіз");
 	
 	private String name;

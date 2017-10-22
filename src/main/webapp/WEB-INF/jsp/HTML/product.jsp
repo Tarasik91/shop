@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en"
-	xml:lang="en" xmlns:fb="http://www.facebook.com/2008/fbml">
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<html >
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Your Store</title>
@@ -19,20 +18,21 @@
 	media="screen" />
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/stylesheet/color.css" />" media="screen" />
+
 <link rel="stylesheet" type="text/css"
-	href="<c:url value="/resources/stylesheet/prettyPhoto.css" />"
-	media="all" />
+	href="<c:url value="/resources/stylesheet/fotorama.css" />"
+	media="all" />	
+	
 <!--[if lt IE 9]>
 <link rel="stylesheet" type="text/css" href="stylesheet/ie.css" media="screen" />
 <![endif]-->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
 <script type="text/javascript"
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
-<script type="text/javascript"
-	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
-
-<script type="text/javascript"
-	src="<c:url value="/resources/js/jquery/jquery.prettyPhoto.js" />"></script>
+	src="<c:url value="/resources/js/fotorama.js" />"></script>
+	
 <script type="text/javascript"
 	src="<c:url value="/resources/js/shoppica.js"/>"></script>
 <script type="text/javascript"
@@ -41,22 +41,14 @@
 	$(document)
 			.ready(
 					function() {
-
 						$(".s_tabs").tabs({
 							fx : {
 								opacity : 'toggle',
 								duration : 300
 							}
 						});
+	});
 
-						$(
-								"#product_images a[rel^='prettyPhoto'], #product_gallery a[rel^='prettyPhoto']")
-								.prettyPhoto({
-									theme : 'light_square',
-									opacity : 0.5
-								});
-
-					});
 </script>
 
 </head>
@@ -74,9 +66,9 @@
 				<a id="site_logo" href="/myshop/">Shoppica store - Premium
 					e-Commerce Theme</a>
 
-			<%@include file="block/links.jsp"%>
-				
-			<%@include file="block/header.jsp"%>
+				<%@include file="block/links.jsp"%>
+
+				<%@include file="block/header.jsp"%>
 
 
 			</div>
@@ -110,30 +102,35 @@
 				<div id="product_images" class="grid_6 alpha">
 					<a id="product_image_preview" rel="prettyPhoto[gallery]"
 						href="${pageContext.request.contextPath}${product.photoPath}">
-						<img id="image" src="${pageContext.request.contextPath}${product.photoPath}"
-						title="Leica M7" alt="Leica M7" /></a>
+						<img id="image"
+						src="${pageContext.request.contextPath}${product.photoPath}"
+						title="${product.name}" alt="${product.name}" />
+					</a>
 				</div>
 				<div id="product_info" class="grid_6 omega">
 					<p class="s_price">
 						<span class="s_currency s_before"></span>${product.sellingPrice }₴
 					</p>
 					<dl class="clearfix">
-						<dt>В наявності</dt>
-						<dd>є на стані</dd>
-						<dt>Розмір</dt>
-						<dd>${product.size }</dd>
-						<dt>Колір</dt>
-						<dd>
-							${product.color }
-						</dd>
-						<dt>Середній рейтинг</dt>
+						<c:forEach var="entry" items="${quantity}">
+							<c:if test="${entry.value != 0}">
+								<c:set var="colorSize" value="${fn:split(entry.key, '@@')}" />
+								<dt>Розмір</dt>
+								<dd>${sizes[colorSize[1]].name }</dd>
+								<dt>Колір</dt>
+								<dd>${colors[colorSize[0]].name }</dd>
+								<dt>Кількість</dt>
+								<dd>${entry.value}</dd>
+							</c:if>
+						</c:forEach>
+
 						<dd>
 							<p class="s_rating s_rating_5">
 								<span style="width: 100%;" class="s_percent"></span>
 							</p>
 						</dd>
 					</dl>
-			
+
 					<div id="product_options">
 						<h3>Додаткові параметри</h3>
 
@@ -210,15 +207,14 @@
 							<span class="clear"></span>
 						</div>
 
-						<div id="product_gallery">
-							<ul class="s_thumbs clearfix">
+						<div id = "product_gallery">
+						<div class="fotorama" data-width="700" data-ratio="700/467" data-max-width="100%">
 								<c:forEach items="${product.photos}" var="photo">
-									<li><a class="s_thumb" href="<c:url value = "${photo }"/>"
-										title="Leic" rel="prettyPhoto[gallery]"><img
-											src="${pageContext.request.contextPath}${photo}" width="120"
-											title="Leica M7" alt="Leica M7" /></a></li>
+								
+								 <img src="${pageContext.request.contextPath}${photo}"/>
+									
 								</c:forEach>
-							</ul>
+						</div>
 						</div>
 					</div>
 				</div>
@@ -248,7 +244,8 @@
 						<span class="clear s_mb_15"></span>
 						<div class="align_center clearfix">
 							<a class="s_button_1 s_secondary_color_bgr s_ml_0"
-								href="/myshop/cart/view"><span class="s_text">Корзина</span></a> <a class="s_button_1 s_secondary_color_bgr"
+								href="/myshop/cart/view"><span class="s_text">Корзина</span></a>
+							<a class="s_button_1 s_secondary_color_bgr"
 								href="/myshop/cart/checkout"><span class="s_text">Замовлення</span></a>
 						</div>
 

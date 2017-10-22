@@ -25,6 +25,18 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
+	<bean id="jacksonMessageConverter"
+        class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+    </bean>
+    <bean
+        class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+    <property name="messageConverters">
+        <list>
+            <ref bean="jacksonMessageConverter" />
+        </list>
+    </property>
+    </bean>
+
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
 		p:location="/WEB-INF/database.properties">

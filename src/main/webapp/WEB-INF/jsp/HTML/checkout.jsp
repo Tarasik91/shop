@@ -6,9 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en"
 	xml:lang="en" xmlns:fb="http://www.facebook.com/2008/fbml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Your Store</title>
-<meta name="description" content="My Store" />
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/stylesheet/960.css" />" media="all" />
 <link rel="stylesheet" type="text/css"
@@ -21,28 +19,17 @@
 <link rel="stylesheet" type="text/css" href="stylesheet/ie.css" media="screen" />
 <![endif]-->
 
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3mL-PMg7WlumTwF9tbbNBHS0YiJlQlMc&callback=initMap">
+    </script>
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
 <script type="text/javascript"
 	src="<c:url value="/resources/js/shoppica.js"/>"></script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		if (window.PIE) {
-			$('.rounded').each(function() {
-				PIE.attach(this);
-			});
-		}
-	});
-</script>
-<script type="text/javascript">
-	$(function() {
-		$("#checkout form").accordion({
-			autoHeight : false
-		});
-	});
-</script>
+<script type="text/javascript"
+	src="<c:url value="/resources/js/client.js"/>"></script>
 
 </head>
 
@@ -108,16 +95,30 @@
 									/>
 							</div>
 							<div class="s_row_2 clearfix">
-								<label>E-Mail: *</label> <input name="email" type="text"
-									 />
+								<label>E-Mail: *</label> 
+								<input name="email" type="text"/>
 							</div>
 							<div class="s_row_2 clearfix">
-								<label>Тип доставки</label> <select name="deliveryType">
+								<label>Тип доставки</label> <select id = "deliveryType"  name="deliveryType">
 									<c:forEach items="${deliveryTypes}" var="deliveryType">
 										<option value="${deliveryType}">${deliveryType.name}</option>
 									</c:forEach>
 								</select>
 							</div>
+							<div class="s_row_2 clearfix" id = "deparmtmentMapSection">
+							  <div id="map"></div>
+							</div>
+							<script>
+						    var map;  
+							function initMap() {
+						        var lviv = {lat: 49.85, lng: 24.016};
+						        map = new google.maps.Map(document.getElementById('map'), {
+						          zoom: 6,
+						          center: lviv
+						        });
+						       
+						      }
+   							 </script>
 						</div>
 						<div class="grid_6 omega">
 							<h3>
@@ -140,6 +141,17 @@
 									</c:forEach>
 								</select>
 							</div>
+							
+							<div class="s_row_2 hidden" id = "citySection">
+								<label>Місто</label> 
+									<input  id ="cities"/>
+							</div>
+							
+							<div class="s_row_2  hidden" id = "deparmtmentNewMailSection">
+								<label>Відділення</label> 
+									<select  id ="departmantNewMail" ></select>
+							</div>
+							
 
 						</div>
 						<div class="clear"></div>
@@ -153,11 +165,7 @@
 							<span class="s_secondary_color">Order</span> comments
 						</h3>
 						<div class="s_row_3 clearfix">
-							<textarea rows="8" style="width: 99%;"></textarea>
-						</div>
-						<div class="s_row_3 clearfix">
-							<label class="s_checkbox"><input type="checkbox" /> I
-								have read and agree to the Terms &amp; Conditions</label>
+							<textarea rows="3" style="width: 99%;"></textarea>
 						</div>
 
 					</div>

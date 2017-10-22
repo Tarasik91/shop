@@ -1,7 +1,60 @@
 $(document).ready(function () {
     $('#add_to_cart').removeAttr('onclick');
-
-    //$(document).on('click','.s_button_remove',function(){
+    
+    $(".remove-product").click(function() {
+    	var productId = $(this).closest("tr").attr("data-id");
+		var $theAnchor = $(this);
+		$.ajax({
+            type: 'get',
+            dataType: "json",
+            url: '/myshop/cart/removeProduct',
+            data :{productId : productId},
+            success: function (count) {    
+            	$('#cart_menu div.s_cart_holder').html(count + " items" );
+            	$theAnchor.closest("tr").remove();
+            },
+        })
+	});
+    
+    $("#confirm-button").click(function(e){
+    	e.preventDefault();
+    	//var products = [];
+    	
+    	var products = [];
+    	$(".product-quantity-cart-row").each(function(){
+    		product = {"quantity":$(this).find("td.quantity input").val(), 
+    				"price": $(this).find("td.sellingPrice").text(),
+    				"productId":$(this).attr("data-id")
+    		};
+        	products.push(product);
+    	})
+    	$.ajax({
+            type: 'post',
+            dataType: "json",
+            contentType: 'application/json',
+            url: '/myshop/cart/change',
+            data :JSON.stringify(products),
+            success: function (count) {    
+            	$("#cart").submit();
+            },
+        })
+    });
+    
+    $(".quantity").keyup(function () {
+    	var $theAnchor = $(this);
+    	var quantity = $(this).find("input").val();
+    	var tr = $theAnchor.closest("tr");
+    	var price =  tr.children('td.sellingPrice').text();
+    	var total = price * quantity;
+    	var td = tr.children('td.totalPrice');
+    	td.text(total);
+    	var newBasketPrice = 0;
+    	$(".totalPrice").each(function(){
+    		newBasketPrice += parseFloat( $(this).html()); 
+    	})
+    	$("#basketPrice").html(newBasketPrice);
+    });
+    
     $(".s_button_remove").live('click', function(){ 	
     //$('.s_button_remove').click(function () {
     	var productId = $(this).attr("data-product-id");
@@ -21,7 +74,6 @@ $(document).ready(function () {
 
     $('.s_button_remove_tr').click(function () {  
         	var productId = $(this).attr("data-product-id");
-    	
         	var $theAnchor = $(this);
             $.ajax({
                 type: 'get',

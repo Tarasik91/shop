@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.myshop.dao.OrderDao;
 import com.myshop.model.Order;
+import com.myshop.model.Product;
 
 @Repository
 public class OrderDaoImpl implements OrderDao {
@@ -34,8 +35,16 @@ public class OrderDaoImpl implements OrderDao {
 	@Transactional
 	public List<Order> findAll() {
 		Session session = factory.getCurrentSession();
-		List<Order> results =  session.createQuery("from Order").list();
+		List<Order> results = (List<Order>)  session.createQuery("from Order").list();
 		return results;
+	}
+
+	@Override
+	@Transactional
+	public Order findById(int id) {
+		Session session = factory.getCurrentSession();
+		Order order =  (Order) session.get(Order.class, id);
+		return order;
 	}
 
 }

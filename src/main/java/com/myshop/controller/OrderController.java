@@ -1,5 +1,6 @@
 package com.myshop.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,12 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.myshop.bean.OrderBean;
+import com.myshop.bean.ProductInBasketBean;
 import com.myshop.dao.OrderDao;
 import com.myshop.dao.ProductDao;
 import com.myshop.dao.ProductInOrderDao;
 import com.myshop.model.Order;
 import com.myshop.model.ProductInOrder;
 import com.myshop.model.enums.DeliveryType;
+import com.myshop.model.enums.OrderStatus;
 import com.myshop.model.enums.PaidType;
 
 @Controller
@@ -40,29 +44,31 @@ public class OrderController {
 			@RequestParam("email") String email,
 			@RequestParam("telephone") String telephone,
 			@RequestParam("address") String address){
+		HttpSession session = request.getSession();
 		Order order = new Order();
 		order.setFirstName(firstName);
 		order.setLastName(lastName);
 		order.setAddress(address);
 		order.setEmail(email);
 		order.setTelephone(telephone);
+		order.setAmount( (double) session.getAttribute("totalPrice"));
 		orderDao.add(order);		
 		
-		Map<Integer, Integer> map = (Map<Integer, Integer>) request.getSession().getAttribute("productIdsMap");
-		
-		productInOrderDao.addProducts(getProducts(map, order));
+		List<ProductInBasketBean> products = (List<ProductInBasketBean>) session.getAttribute("productIdsMap");
+		productInOrderDao.addProducts(getProducts(products, order));
 		request.getSession().setAttribute("productIdsMap", null);
 		return "redirect:/product/cards";
 	}
 	
-	private List<ProductInOrder> getProducts(Map<Integer,Integer> map, Order order){
-		Set<Integer> productIds = map.keySet();
+	private List<ProductInOrder> getProducts(List<ProductInBasketBean> products, Order order){
+		
 		List<ProductInOrder> result = new ArrayList<>();
-		if (productIds.size() > 0){
-			for(int id : productIds){
+		if (products !=null &&  products.size() > 0){
+			for(ProductInBasketBean product : products){
 				ProductInOrder productInOrder = new ProductInOrder();
-				productInOrder.setProduct(productDao.findById(id));
-				productInOrder.setQuantity(map.get(id));
+				productInOrder.setProduct(productDao.findById(product.getProductId()));
+				productInOrder.setQuantity(product.getQuantity());
+				productInOrder.setPrice(product.getPrice());
 				productInOrder.setOrder(order);
 				result.add(productInOrder);
 			}
@@ -75,6 +81,8 @@ public class OrderController {
 		model.addAttribute("deliveryTypes", DeliveryType.values());
 		model.addAttribute("paidTypes", PaidType.values());
 		model.addAttribute("orders",orderDao.findAll());
+		model.addAttribute("statuses", OrderStatus.values());
+		model.addAttribute("localDateTimeFormat", new SimpleDateFormat("yyyy-MM-dd'T'hh:mm"));
 		return "/HTML/orders";
 	}
 }

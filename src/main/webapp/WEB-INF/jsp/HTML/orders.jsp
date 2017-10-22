@@ -1,5 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -31,7 +33,7 @@
   <div id="header" class="container_12">
     <div class="grid_12">
     
-    	<a id="site_logo" href="index.html">Shoppica store - Premium e-Commerce Theme</a> 
+    	<a id="site_logo" href="/">Shoppica store - Premium e-Commerce Theme</a> 
 
 		<%@include file="block/links.jsp"%>
 				
@@ -47,10 +49,10 @@
     <div id="intro_wrap">
       <div class="container_12">
         <div id="breadcrumbs" class="grid_12">
-          <a href="index.html">Home</a>
-           &gt; <a href="cart.html">Basket</a>
+          <a href="/">Home</a>
+           &gt; <a href="/myshop/order/cards">Заявки</a>
         </div>
-        <h1>Orders</h1>
+        <h1>Заявки</h1>
       </div>
     </div>
   </div>
@@ -68,23 +70,24 @@
        <c:forEach items="${orders}" var="order">
         <div class="grid_4">
           <div class="s_order clearfix">
-            <p class="s_id"><span class="s_999">Order ID:</span> <span class="s_main_color">#${order.id }</span></p>
-            <p class="s_status s_secondary_color">Canceled</p>
+            <p class="s_id"><span class="s_999">№ Зам.:</span> <span class="s_main_color">#${order.id }</span></p>
+            <p class="s_status s_secondary_color">${order.status.name} </p>
             <span class="clear"></span>
             <dl class="clearfix">
 
-              <dt>Date Added::</dt>
-              <dd>07/04/2011</dd>
-              <dt>Customer:</dt>
+              <dt>Дата створення</dt>
+              <dd><joda:format pattern="dd-MM-yyyy HH:mm" value="${order.dateCreated}"/>
+               </dd>
+              <dt>Покупець:</dt>
               <dd>${order.lastName } ${order.firstName }</dd>
-              <dt>Products:</dt>
+              <dt>Продуктів:</dt>
               <dd>1</dd>
 
             </dl>
             <span class="clear border_eee"></span>
             <br />
             <p class="s_total left"><span class="s_currency s_before">$</span>${order.amount }</p>
-            <a href="invoice.html" class="s_main_color right"><strong>View</strong></a>
+            <a href="${pageContext.request.contextPath}/invoice/view/${order.id}" class="s_main_color right"><strong>View</strong></a>
           </div>
         </div>
  		</c:forEach>
@@ -102,14 +105,16 @@
   </div>
   <!-- end of content --> 
   
-  <!-- ********************** --> 
-  <!--   S H O P   I N F O    --> 
-  <!-- ********************** --> 
-  <div id="shop_info">
-    
-  </div>
-  <!-- end of shop info --> 
-  
+  	<!--   S H O P   I N F O    -->
+		<!-- ********************** -->
+		<div id="shop_info">
+			<div id="shop_info_wrap">
+				<div class="container_12">
+					<%@include file="block/contact.jsp"%>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
   
 </div>
 

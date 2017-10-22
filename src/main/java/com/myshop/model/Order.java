@@ -2,9 +2,15 @@ package com.myshop.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
+import com.myshop.model.enums.OrderStatus;
 
 @Entity
 @Table(name = "customer_order")
@@ -14,7 +20,8 @@ public class Order {
 	@GeneratedValue
 	private int id;
 	@Column(name = "status")
-	private int status = 1;
+	@Enumerated
+	private OrderStatus status;
 	@Column(name = "amount")
 	private double amount = 1;
 	@Column(name = "firstName")
@@ -27,53 +34,80 @@ public class Order {
 	private String address;
 	@Column(name = "telephone")
 	private String telephone;
+	@Column(name = "date_created")
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	private DateTime dateCreated;
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getStatus() {
+
+	public OrderStatus getStatus() {
 		return status;
 	}
-	public void setStatus(int status) {
+
+	public void setStatus(OrderStatus status) {
 		this.status = status;
 	}
+
 	public String getFirstName() {
 		return firstName;
 	}
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
+
 	public String getLastName() {
 		return lastName;
 	}
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getAddress() {
 		return address;
 	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
 	public String getTelephone() {
 		return telephone;
 	}
+
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
+
 	public double getAmount() {
 		return amount;
 	}
+
 	public void setAmount(double amoubt) {
 		this.amount = amoubt;
 	}
-	
+
+	public DateTime getDateCreated() {
+		return dateCreated;
+	}
+
+	public void setDateCreated(DateTime dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+
 }

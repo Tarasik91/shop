@@ -1,8 +1,6 @@
 package com.myshop.model;
 
-import java.io.File;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +24,7 @@ public class Product {
 	private double sellingPrice;
 
 	@Column
-	private String color;
+	private boolean active;
 
 	@Column
 	private String size;
@@ -89,14 +87,6 @@ public class Product {
 		this.description = description;
 	}
 
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-	}
-
 	public String getSize() {
 		return size;
 	}
@@ -105,4 +95,12 @@ public class Product {
 		this.size = size;
 	}
 
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+	
 }

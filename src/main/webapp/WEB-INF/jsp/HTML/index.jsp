@@ -6,8 +6,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en" xml:lang="en" xmlns:fb="http://www.facebook.com/2008/fbml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Your Store</title>
-<meta name="description" content="My Store" />
+<title>Малятко</title>
+<meta name="description" content="Малятко" />
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/stylesheet/960.css" />" media="all" />
 <link rel="stylesheet" type="text/css"

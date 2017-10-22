@@ -8,4 +8,6 @@ public interface OrderDao {
 	public Order add(Order entity);
 	
 	public List<Order> findAll();
+	
+	public Order findById(int id);
 }
