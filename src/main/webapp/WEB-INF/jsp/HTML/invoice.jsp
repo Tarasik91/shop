@@ -6,21 +6,40 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Малятко</title>
-<meta name="description" content="Малятко" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+
+  <!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<meta name="description" content="My Store" />
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/stylesheet/960.css" />" media="all" />
+ 
+
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/stylesheet/screen.css" />"
 	media="screen" />
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/stylesheet/color.css" />" media="screen" />
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/resources/stylesheet/prettyPhoto.css" />"
+	media="all" />
 <!--[if lt IE 9]>
 <link rel="stylesheet" type="text/css" href="stylesheet/ie.css" media="screen" />
 <![endif]-->
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
-<script type="text/javascript" src="<c:url value="/resources/js/shoppica.js"/>" ></script>
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
+
+<script type="text/javascript"
+	src="<c:url value="/resources/js/jquery/jquery.prettyPhoto.js" />"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/js/shoppica.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/js/admin.js"/>"></script>
 
 </head>
 
@@ -35,7 +54,7 @@
     <div class="grid_12">
     
     	<a id="site_logo" href="index.html">Shoppica store - Premium e-Commerce Theme</a> 
-<%@include file="block/links.jsp"%>	
+      <%@include file="block/links.jsp"%>	
       <%@include file="block/header.jsp"%>
       
       
@@ -63,7 +82,7 @@
   </div>
   <!-- end of intro -->
 
-  
+  <input type = "hidden" id = "orderId" value="${order.id}" >
   <!-- ********************** --> 
   <!--      C O N T E N T     -->
   <!-- ********************** --> 
@@ -73,8 +92,7 @@
 
       <div class="s_order clearfix">
 
-        <p class="s_status"><span class="s_999">Invoice ID:</span> <span class="s_secondary_color">INV1</span></p>
-        <p class="s_id"><span class="s_999">Order ID</span> <span class="s_main_color">#4</span></p>
+        <p class="s_id"><span class="s_999">Номер заявки</span> <span class="s_main_color">#4</span></p>
 
         <span class="clear border_eee"></span>
         
@@ -86,11 +104,18 @@
           <dt>Тип доставки</dt>
           <dd></dd>
           <dt>Тип оплати</dt>
-          <dd>Cash On Delivery</dd>
+          <dd></dd>
+          <dt>Статус</dt>
+          
+          <dd><select name="status" id = "orderStatus">
+				<c:forEach items="${orderStatuses}" var="status">
+					<option ${order.status == status ? "selected" :""}  
+					value="${status}">${status.name}</option>
+				</c:forEach>
+			</select></dd>
         </dl>
         
         <span class="clear border_eee"></span>
-
         <div class="grid_7 alpha">
           <h2>Payment Address</h2>
           <p>Pinko Pinkov<br />Pinkotown<br />Pinkotown 000000<br />Varna<br />Bulgaria</p>
@@ -105,25 +130,26 @@
         <h2>Product</h2>
         <table class="s_table" width="100%" cellpadding="0" cellspacing="0" border="0">
           <tr>
-            <th>Product</th>
-            <th>Quantity</th>
+            <th>Продукт</th>
+            <th>Кількість</th>
             <th>Unit Price</th>
             <th width="130">Total</th>
           </tr>
           
+         <c:set var="total" value="${0}"/>
          <c:forEach items="${products}" var="pio">
           <tr>
             <td class="align_left"><strong>${pio.product.name }</strong></td>
-          
             <td>${pio.quantity}</td>
             <td><span class="s_currency s_before">$</span>${pio.price}</td>
             <td><span class="s_currency s_before">$</span>${pio.price * pio.quantity}</td>
+            <c:set var="total" value="${total + pio.price * pio.quantity}" />
           </tr>
           </c:forEach>
           
           <tr class="last">
-            <td class="align_right" colspan="3"><strong>Total:</strong></td>
-            <td class="s_secondary_color"><span class="s_currency s_before">$</span>3,213.08</td>
+            <td class="align_right" colspan="3"><strong>Разом:</strong></td>
+            <td class="s_secondary_color"><span class="s_currency s_before">$</span>${total }</td>
           </tr>
         </table>
 

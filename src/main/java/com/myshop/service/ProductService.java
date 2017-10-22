@@ -22,6 +22,7 @@ import com.myshop.model.ProductInOrder;
 import com.myshop.model.ProductQuantity;
 import com.myshop.model.ProductType;
 import com.myshop.model.enums.Color;
+import com.myshop.model.enums.OrderingType;
 import com.myshop.model.enums.Size;
 import com.myshop.util.PaginationModel;
 import com.myshop.util.PaginationUtil;
@@ -86,7 +87,7 @@ public class ProductService {
 		}
 	}
 
-	public Model viewByTypeAndPage(HttpServletRequest request, Model uiModel, int categoryId, int pageNumber) {
+	public Model viewByTypeAndPage(HttpServletRequest request, Model uiModel, int categoryId, int pageNumber, OrderingType orderingType) {
 		HttpSession session = request.getSession();
 		Map<Integer, Integer> map = (Map<Integer, Integer>) session.getAttribute("productIdsMap");
 		Object isAdmin = session.getAttribute("isAdminLogined");
@@ -111,13 +112,14 @@ public class ProductService {
 		}
 		ProductType type = productTypeDao.findById(categoryId);
 		uiModel.addAttribute("productType", type);
-		PaginationModel<Product> model = productDao.findByTypeAndPage(categoryId, pageNumber);
+		PaginationModel<Product> model = productDao.findByTypeAndPage(categoryId, pageNumber, orderingType);
 		PaginationUtil.getMaxMinValue(model);
 		uiModel.addAttribute("products", bean.getArray(model.getList()));
 		uiModel.addAttribute("paginationModel", model);
 		uiModel.addAttribute("productTypes", productTypes);
 		uiModel.addAttribute("totalPrice", totalPrice);
 		uiModel.addAttribute("totalCount", count);
+		uiModel.addAttribute("orderingType", OrderingType.values());
 		return uiModel;
 	}
 }

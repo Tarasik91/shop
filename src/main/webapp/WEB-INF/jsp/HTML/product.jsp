@@ -84,9 +84,9 @@
 			<div id="intro_wrap">
 				<div class="container_12">
 					<div id="breadcrumbs" class="grid_12">
-						<a href="">Home</a> &gt; <a href="">Clothing</a>
+						<a href="/">Початкова</a> &gt; <a href="">${product.productTypeName}</a>
 					</div>
-					<h1>Clothing</h1>
+					<h1>${product.productTypeName}</h1>
 				</div>
 			</div>
 		</div>
@@ -236,6 +236,7 @@
 							</c:forEach>
 						</div>
 						<span class="clear s_mb_15 border_eee"></span>
+						<c:if test="${PIB.productBeans.size() > 0}">
 						<div class="s_total clearfix">
 							<strong class="cart_module_total left">Загальна сума:</strong><span
 								class="cart_module_total">${PIB.totalPrice }<span
@@ -248,7 +249,7 @@
 							<a class="s_button_1 s_secondary_color_bgr"
 								href="/myshop/cart/checkout"><span class="s_text">Замовлення</span></a>
 						</div>
-
+						</c:if>
 					</div>
 				</div>
 

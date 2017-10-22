@@ -77,16 +77,11 @@
 			<div id="category" class="grid_9">
 				<div id="listing_options">
 					<div id="listing_sort" class="s_switcher">
-						<span class="s_selected">Default</span>
+						<span class="s_selected">${orderingType[0].name}</span>
 						<ul class="s_options" style="display: none;">
-							<li><a href="">Name A - Z</a></li>
-							<li><a href="">Name Z - A</a></li>
-							<li><a href="">Price Low &gt; High</a></li>
-							<li><a href="">Price High &gt; Low</a></li>
-							<li><a href="">Rating Highest</a></li>
-							<li><a href="">Rating Lowest</a></li>
-							<li><a href="">Model A - Z</a></li>
-							<li><a href="">Model Z - A</a></li>
+							<c:forEach items="${orderingType}" var="ot">
+								<li><a href="/myshop/product/type/${productType.id }/page/1/?sort=${ot }">${ot.name}</a></li>
+							</c:forEach>											
 						</ul>
 					</div>
 				</div>

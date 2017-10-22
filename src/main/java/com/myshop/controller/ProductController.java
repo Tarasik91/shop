@@ -9,7 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.myshop.model.enums.OrderingType;
 import com.myshop.service.ProductService;
 
 @Controller
@@ -28,9 +30,10 @@ public class ProductController {
 
 	@RequestMapping(value = "/type/{id}/page/{pageNumber}", method = RequestMethod.GET)
 	public String getCardsByCategoryAndPage(HttpServletRequest request, Model uiModel, @PathVariable("id") int categoryId, 
-			@PathVariable("pageNumber") int pageNumber) {
+			@PathVariable("pageNumber") int pageNumber, @RequestParam(required = false, defaultValue = "PRICE_A", name = "sort") OrderingType sortType) {
+		System.out.println(sortType);
 		//String realPath = request.getSession().getServletContext().getRealPath("/");
-		service.viewByTypeAndPage(request, uiModel, categoryId, pageNumber);
+		service.viewByTypeAndPage(request, uiModel, categoryId, pageNumber, sortType);
 		return "HTML/listing_2";
 	}
 }

@@ -80,18 +80,18 @@
 			<div id="checkout" class="grid_12">
 				<form id="checkout_form" class="s_accordion"
 					action="/myshop/order/save">
-					<h2>Billing details</h2>
+					<h2>Дані про оплату</h2>
 					<div>
 						<div class="grid_6 alpha">
 							<h3>
-								<span class="s_secondary_color">Your</span> Personal Details
+								<span class="s_secondary_color">Ваші</span> Особисті дані
 							</h3>
 							<div class="s_row_2 clearfix">
-								<label>First Name: *</label> <input name="firstName" type="text"
+								<label>Імя: *</label> <input name="firstName" type="text"
 									 />
 							</div>
 							<div class="s_row_2 clearfix">
-								<label>Last Name: *</label> <input name="lastName" type="text"
+								<label>Прізвище: *</label> <input name="lastName" type="text"
 									/>
 							</div>
 							<div class="s_row_2 clearfix">
@@ -135,7 +135,8 @@
 									title="Address 1 must be between 3 and 128 characters!" />
 							</div>
 								<div class="s_row_2 clearfix">
-								<label>Тип доставки</label> <select name="paidType">
+								<label>Тип доставки</label> 
+								<select name="paidType">
 									<c:forEach items="${paidTypes}" var="paidType">
 										<option value="${paidType}">${paidType.name}</option>
 									</c:forEach>
@@ -151,7 +152,7 @@
 								<label>Відділення</label> 
 									<select  id ="departmantNewMail" ></select>
 							</div>
-							
+					
 
 						</div>
 						<div class="clear"></div>

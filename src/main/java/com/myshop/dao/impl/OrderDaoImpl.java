@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.myshop.dao.OrderDao;
 import com.myshop.model.Order;
 import com.myshop.model.Product;
+import com.myshop.model.enums.OrderStatus;
 
 @Repository
 public class OrderDaoImpl implements OrderDao {
@@ -45,6 +46,16 @@ public class OrderDaoImpl implements OrderDao {
 		Session session = factory.getCurrentSession();
 		Order order =  (Order) session.get(Order.class, id);
 		return order;
+	}
+
+	@Override
+	@Transactional
+	public void updateStatus(int id, OrderStatus status) {
+		Session session = factory.getCurrentSession();
+		Order order =  (Order) session.get(Order.class, id);
+		order.setStatus(status);
+		session.save(order);
+		
 	}
 
 }

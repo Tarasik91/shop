@@ -60,4 +60,17 @@ $(document).ready(function() {
 		$("#productQuantityTable tbody")
 				.append(tr);
 	});
+		
+	$("#orderStatus").change(function(){
+		var orderId = $("#orderId").val();
+		var statusId =  $(this).find('option:selected').val();
+		var url = "/myshop/invoice/changeStatus";
+		$.ajax({
+			data:{statusId:statusId, orderId:orderId}, 
+			type: "POST",  
+			url: url,
+			}).done(function() {
+				 Materialize.toast('Статус змінений', 4000) 
+			});
+	});	
 })

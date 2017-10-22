@@ -42,7 +42,7 @@
 <script type="text/javascript"
 	src="<c:url value="/resources/js/shoppica.js"/>"></script>
 <script type="text/javascript"
-	src="<c:url value="/resources/js/admin-product.js"/>"></script>
+	src="<c:url value="/resources/js/admin.js"/>"></script>
 
 </head>
 

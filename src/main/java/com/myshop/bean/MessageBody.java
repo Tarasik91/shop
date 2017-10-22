@@ -16,4 +16,10 @@ public class MessageBody {
 		this.status = status;
 	}
 	
+	public MessageBody(String message, String status){
+		this.messsage = message;
+		this.status = status;
+	}
+	public MessageBody(){
+	}
 }

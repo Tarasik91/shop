@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.myshop.dao.ProductDao;
 import com.myshop.model.Product;
+import com.myshop.model.enums.OrderingType;
 import com.myshop.util.Constants;
 import com.myshop.util.PaginationModel;
 
@@ -73,9 +74,9 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	@Transactional
-	public PaginationModel<Product> findByTypeAndPage(int typeId, int pageNumber) {
+	public PaginationModel<Product> findByTypeAndPage(int typeId, int pageNumber, OrderingType orderingType) {
 		Session session = sessionFactory.getCurrentSession();
-		Query query = session.createQuery("FROM Product item WHERE item.productType.id = :type");
+		Query query = session.createQuery("FROM Product item WHERE item.productType.id = :type ORDER BY "  + orderingType.sql);
 		query.setFirstResult(pageNumber);
 		query.setMaxResults(Constants.PAGE_SIZE);
 		query.setParameter("type", typeId);
@@ -83,7 +84,7 @@ public class ProductDaoImpl implements ProductDao {
 		PaginationModel<Product> model = new PaginationModel<>();
 		model.setList(query.list());
 		model.setPage(pageNumber);
-		String countQ = "Select count (p.id) from Product p WHERE p.productType.id = :type";
+		String countQ = "Select count (p.id) from Product p WHERE p.productType.id = :type"  ;
 		Query countQuery = session.createQuery(countQ);
 		countQuery.setParameter("type", typeId);
 		long countResults = (Long) countQuery.uniqueResult();

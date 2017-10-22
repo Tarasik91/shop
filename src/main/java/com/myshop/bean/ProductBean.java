@@ -20,6 +20,7 @@ public class ProductBean {
 	private ArrayList<String> photos;
 	private String photoPath;
 	private int productType;
+	private String productTypeName;
 	private int quantity;
 	private double totalPrice;
 
@@ -82,6 +83,13 @@ public class ProductBean {
 		this.totalPrice = totalPrice;
 	}
 	
+	
+	public String getProductTypeName() {
+		return productTypeName;
+	}
+	public void setProductTypeName(String productTypeName) {
+		this.productTypeName = productTypeName;
+	}
 	public String getDescription() {
 		return description;
 	}
@@ -140,6 +148,7 @@ public class ProductBean {
 		bean.setRealPath(realPath);
 		bean.setId(product.getId());
 		bean.setName(product.getName());
+		bean.setProductTypeName(product.getProductType().getName());
 		bean.setPurchasePrice(product.getPurchasePrice());
 		bean.setSellingPrice(product.getSellingPrice());
 		bean.setDescription(product.getDescription());

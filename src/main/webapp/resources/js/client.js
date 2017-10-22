@@ -24,6 +24,7 @@ $(document).ready(function() {
 				    },
 				"apiKey": "8c16ebfdb7984f9e3fa18904a65805f8"
 				};
+		$('#deparmtmentNewMailSection option') .remove();
 		$.ajax({
             type: 'post',
             dataType: "jsonp",
@@ -45,7 +46,7 @@ $(document).ready(function() {
 	}
 	var marker;
 	$("#departmantNewMail").change(function(){
-		 var element = $(this).find('option:selected');
+		var element = $(this).find('option:selected');
 		var latitude = parseFloat(element.attr("data-latitude"));
 		var longitude = parseFloat(element.attr("data-longitude"));
 		 var position = {lat: latitude, lng: longitude};
