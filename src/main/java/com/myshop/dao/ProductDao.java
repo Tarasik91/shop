@@ -1,10 +1,7 @@
 package com.myshop.dao;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
-
-import javax.transaction.Transactional;
 
 import com.myshop.model.Product;
 import com.myshop.model.enums.OrderingType;

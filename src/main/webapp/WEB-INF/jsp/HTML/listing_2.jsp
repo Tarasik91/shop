@@ -8,7 +8,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Your Store</title>
-<meta name="description" content="My Store" />
+<meta name="description" content="Малятко" />
+<meta property="og:image" content="images/dummy/pic_1.jpg" />
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/stylesheet/960.css" />" media="all" />
 <link rel="stylesheet" type="text/css"
@@ -26,9 +27,9 @@
 	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
 <script type="text/javascript"
 	src="<c:url value="/resources/js/shoppica.js" />"></script>
-
+<script type="text/javascript"
+	src="<c:url value="/resources/js/ajax_add.js" />"></script>
 </head>
-
 <body class="s_layout_fixed">
 
 	<div id="wrapper">
@@ -38,10 +39,8 @@
 		<!-- ********************** -->
 		<div id="header" class="container_12">
 			<div class="grid_12">
-
 				<a id="site_logo" href="/myshop/">Shoppica store - Premium
 					e-Commerce Theme</a>
-
 				<%@include file="block/links.jsp"%>				
 				<%@include file="block/header.jsp"%>
 			</div>
@@ -93,7 +92,7 @@
 								<div class="s_item grid_3">
 									<a class="s_thumb"
 										href="/myshop/product/view/<c:out value="${p.id}" />"> 
-										<img src="${pageContext.request.contextPath}${p.photoPath}"
+										<img id = "image" src="${pageContext.request.contextPath}${p.photoPath}"
 										title="${p.name}" alt="${p.name}" /></a>
 									<h3>
 										<a href="/myshop/product/view/<c:out value="${p.id}" />">${p.name}</a>
@@ -115,8 +114,9 @@
 											<span class="s_icon"></span>Видалити									
 										</a>
 									</c:if>
-									<a class="s_button_add_to_cart"
-										href="/myshop/product/view/<c:out value="${p.id}" />"> <span
+									
+									<a class="s_button_add_to_cart add_to_cart" data-productId = ${p.id }
+										href="#" /> <span
 										class="s_icon_16"> <span class="s_icon"></span>Добавити
 											в корзину
 									</span></a>
@@ -160,19 +160,23 @@
 							</c:forEach>
 						</div>
 						<span class="clear s_mb_15 border_eee"></span>
-						<c:if test="${PIB.productBeans.size() > 0}">
+						<c:set var = "showTotal"  value = ""/>
+						<c:if test="${PIB.productBeans.size() == 0}">
+							<c:set var = "showTotal"  value = "hidden"/>
+						</c:if>
+						
+						<div class ="${showTotal}" id = "totalDiv">
 						<div class="s_total clearfix">
 							<strong class="cart_module_total left">Загальна сума:</strong><span
-								class="cart_module_total">${PIB.totalPrice }<span
-								class="s_currency s_after">₴</span></span>
+								class="cart_module_total" id = "totalPriceSpan">${PIB.totalPrice }<span
+								class="s_currency s_after">₴</span></span>								
 						</div>
 						<span class="clear s_mb_15"></span>
 						<div class="align_center clearfix">
 							<a class="s_button_1 s_secondary_color_bgr s_ml_0"
-								href="/myshop/cart/view"><span class="s_text">Корзина</span></a> <a class="s_button_1 s_secondary_color_bgr"
-								href="/myshop/cart/checkout"><span class="s_text">Замовлення</span></a>
+								href="/myshop/cart/view"><span class="s_text">Корзина</span></a>
 						</div>
-					</c:if>
+					</div>
 					</div>
 				</div>
 
@@ -186,15 +190,10 @@
 							</c:forEach>
 						</ul>
 					</div>
-
-
 				</div>
-
 			</div>
-
 		</div>
 		<!-- end of content -->
-
 
 		<!-- ********************** -->
 		<!--   S H O P   I N F O    -->
@@ -208,7 +207,6 @@
 			</div>
 		</div>
 		<!-- end of shop info -->
-		<
 	</div>
 </body>
 </html>

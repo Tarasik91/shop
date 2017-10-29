@@ -14,9 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -51,13 +49,9 @@ public class CartController {
 		Map<Integer, Integer> map = (Map<Integer, Integer>) session.getAttribute("productIdsMap");
 		Product product = productDao.findById(productId);	
 		int quantity = Integer.parseInt(quantityString);
-		double totalPrice = 0;
+		
 		if (map == null) {
-			totalPrice = product.getSellingPrice() * quantity;
 			map = new HashMap<>();
-		}else{
-			totalPrice = (double) session.getAttribute("totalPrice");
-			totalPrice += product.getSellingPrice() * quantity;
 		}
 		ProductBean bean = new ProductBean();
 		bean.setQuantity(quantity);
@@ -68,47 +62,48 @@ public class CartController {
 		Set<Integer> productIds = map.keySet();		
 		List<Product> products = productDao.findByIds(productIds);
 		session.setAttribute("productIdsMap", map);
-		session.setAttribute("totalPrice", totalPrice);
 		return pib.getProductInBasketBeanList(products, map);
 	}
 
 	@RequestMapping(path = "/removeProduct", method = RequestMethod.GET)
 	@ResponseBody
-	public String removeProduct(HttpServletRequest request, HttpServletResponse response,
+	public ProductInBasket removeProduct(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam("productId") int productId) {
 		HttpSession session = request.getSession();
 		Map<Integer, Integer> map = (Map<Integer, Integer>) session.getAttribute("productIdsMap");
 		Product product = productDao.findById(productId);		
 		double totalPrice = 0;
 		if (map != null) {		
-			totalPrice = (double) session.getAttribute("totalPrice");
 			totalPrice -= product.getSellingPrice() * map.get(productId);
 			map.remove(productId);
 		}		
-		int count = 0;
-		for (int key : map.keySet()) {
-			count += map.get(key);
-		}
+		
 		session.setAttribute("productIdsMap", map);
 		session.setAttribute("totalPrice", totalPrice);
-		return String.valueOf(count);
+		ProductInBasket pib = new ProductInBasket();
+		Set<Integer> productIds = map.keySet();
+		List<Product> products = new ArrayList<>();
+		if(productIds.size() > 0){
+			products = productDao.findByIds(productIds);
+		}
+		session.setAttribute("productIdsMap", map);
+		return pib.getProductInBasketBeanList(products, map);
 	}
 
 	@RequestMapping(path = "/view", method = RequestMethod.GET)
 	public String getProductFromBasket(Model uiModel, HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		
+		List<Product> products = new ArrayList<>();
 		Map<Integer, Integer> map = (Map<Integer, Integer>) session.getAttribute("productIdsMap");
 		ProductInBasket pib = new ProductInBasket();
 		if (map != null) {
 			Set<Integer> productIds = map.keySet();
 			if (productIds.size() > 0){
-				List<Product> products = productDao.findByIds(productIds);
-				uiModel.addAttribute("PIB", pib.getProductInBasketBeanList(products, map));
+				products = productDao.findByIds(productIds);		
 			}		
-		}else{
-			uiModel.addAttribute("PIB", pib.getProductInBasketBeanList(new ArrayList<>(), map));
 		}
+		uiModel.addAttribute("PIB", pib.getProductInBasketBeanList(products, map));
 		List<ProductType> productTypes = productTypeDAO.findAll();
 		uiModel.addAttribute("productTypes", productTypes);
 		return "HTML/cart";
@@ -117,8 +112,8 @@ public class CartController {
 	@RequestMapping(value = "/change",  headers = "Accept=application/json",  method = RequestMethod.POST)
 	@ResponseBody
 	public MessageBody changeProducts(Model model, HttpServletRequest  request,  @RequestBody List<ProductInBasketBean> products){
-		HttpSession session = request.getSession();
-		session.setAttribute("productIdsMap", products);
+		HttpSession session = request.getSession(true);
+		session.setAttribute("productList", products);
 		MessageBody body = new MessageBody();
 		body.setMesssage("OK");
 		return body;

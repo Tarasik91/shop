@@ -67,8 +67,8 @@
   <div id="content" class="container_12">
   
     <div id="shopping_cart" class="grid_12">
-
-      <form id="cart" class="clearfix" action="/myshop/cart/checkout" method = "post" >
+ 	<c:if test = "${PIB.productBeans.size() > 0}">
+      <form id="cart" class="clearfix" >
         <table class="s_table_1" width="100%" cellpadding="0" cellspacing="0" border="0">
           <tr>
             <th width="65">Видалити</th>
@@ -80,7 +80,7 @@
           </tr>
            <c:forEach items="${PIB.productBeans}" var="p">
            <tr class="even product-quantity-cart-row" data-id = "${p.id}">
-	           <td ><input type ="checkbox" class ="remove-product" /></td>
+	           <td ><a href="#"  class = "remove-product"><img src="${pageContext.request.contextPath}/resources/images/trash1600.png" width="24" height="24" /></a></td>
 	           <td valign="middle"><a href="/myshop/product/view/<c:out value="${p.id}"/>" ><img src="${pageContext.request.contextPath}${p.photoPath}" width="60" height="60" alt="Pana" /></a></td> 
 	           <td valign="middle">${p.name}</td>
 	           <td class= "quantity" valign="middle"><input type="text" size="3" value = "${p.quantity }"/></td>
@@ -95,17 +95,20 @@
         <br />
         <button class="s_button_1 s_main_color_bgr" id = "confirm-button" ><span class="s_text">Підтвердити</span></button>
       </form>
-
+      </c:if>
+      <c:if test = "${PIB.productBeans.size() == 0}">
+      	<h2>Корзина пуста</h2>
+      </c:if>
     </div>
-
     <div class="clear"></div>
     <br />
-    <br />
-    
   </div>
+  		<div id="shop_info">
+			<div id="shop_info_wrap">
+				<%@include file="block/contact.jsp"%>
+			</div>
+		</div>
   <!-- end of content --> 
-  
 </div>
-
 </body>
 </html>

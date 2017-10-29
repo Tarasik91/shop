@@ -48,37 +48,21 @@
 							}
 						});
 	});
-
 </script>
-
 </head>
-
 <body class="s_layout_fixed">
-
 	<div id="wrapper">
-
-		<!-- ********************** -->
 		<!--      H E A D E R       -->
 		<!-- ********************** -->
 		<div id="header" class="container_12">
 			<div class="grid_12">
 
-				<a id="site_logo" href="/myshop/">Shoppica store - Premium
+				<a id="site_logo" href="${pageContext.request.contextPath}">Shoppica store - Premium
 					e-Commerce Theme</a>
-
 				<%@include file="block/links.jsp"%>
-
 				<%@include file="block/header.jsp"%>
-
-
 			</div>
 		</div>
-		<!-- end of header -->
-
-
-		<!-- ********************** -->
-		<!--     I N T R O          -->
-		<!-- ********************** -->
 
 		<div id="intro">
 			<div id="intro_wrap">
@@ -90,27 +74,22 @@
 				</div>
 			</div>
 		</div>
-		<!-- end of intro -->
 
-
-		<!-- ********************** -->
-		<!--      C O N T E N T     -->
-		<!-- ********************** -->
 		<div id="content" class="product_view container_16">
-
 			<div id="product" class="grid_12">
-				<div id="product_images" class="grid_6 alpha">
-					<a id="product_image_preview" rel="prettyPhoto[gallery]"
-						href="${pageContext.request.contextPath}${product.photoPath}">
-						<img id="image"
-						src="${pageContext.request.contextPath}${product.photoPath}"
-						title="${product.name}" alt="${product.name}" />
-					</a>
-				</div>
-				<div id="product_info" class="grid_6 omega">
+					<div id="product_images" class="grid_12 ">
+						<div class="fotorama" data-width="700" data-ratio="700/467" data-max-width="100%">
+								<c:forEach items="${product.photos}" var="photo">
+								 <img src="${pageContext.request.contextPath}${photo}"/>						
+								</c:forEach>
+						</div>
+					</div>
+				<div id="product_info" class="grid_12">
 					<p class="s_price">
 						<span class="s_currency s_before"></span>${product.sellingPrice }₴
 					</p>
+					<h2>${product.name }</h2>
+					<h2>${product.description }</h2>
 					<dl class="clearfix">
 						<c:forEach var="entry" items="${quantity}">
 							<c:if test="${entry.value != 0}">
@@ -130,12 +109,6 @@
 							</p>
 						</dd>
 					</dl>
-
-					<div id="product_options">
-						<h3>Додаткові параметри</h3>
-
-						<span class="clear"></span>
-					</div>
 					<div id="product_buy" class="clearfix">
 						<label for="product_buy_quantity">Кількість:</label> <input
 							id="product_id" name="product_id" type="number" hidden
@@ -150,7 +123,6 @@
 					<ul class="s_tabs_nav clearfix">
 						<li><a href="#product_description">Опис</a></li>
 						<li><a href="#product_reviews">Відгуки </a></li>
-						<li><a href="#product_gallery">Фото</a></li>
 					</ul>
 					<div class="s_tab_box">
 
@@ -207,15 +179,6 @@
 							<span class="clear"></span>
 						</div>
 
-						<div id = "product_gallery">
-						<div class="fotorama" data-width="700" data-ratio="700/467" data-max-width="100%">
-								<c:forEach items="${product.photos}" var="photo">
-								
-								 <img src="${pageContext.request.contextPath}${photo}"/>
-									
-								</c:forEach>
-						</div>
-						</div>
 					</div>
 				</div>
 
@@ -231,25 +194,28 @@
 								<div class="s_cart_item">
 									<a class="s_button_remove" data-product-id="${product.id}">&nbsp;</a>
 									<span class="block">${product.quantity }x <a
-										href="/myshop/product/view/${product.id }">${product.name }</a></span>
+										href="${pageContext.request.contextPath}/product/view/${product.id }">${product.name }</a></span>
 								</div>
 							</c:forEach>
 						</div>
 						<span class="clear s_mb_15 border_eee"></span>
-						<c:if test="${PIB.productBeans.size() > 0}">
-						<div class="s_total clearfix">
-							<strong class="cart_module_total left">Загальна сума:</strong><span
-								class="cart_module_total">${PIB.totalPrice }<span
-								class="s_currency s_after">₴</span></span>
-						</div>
-						<span class="clear s_mb_15"></span>
-						<div class="align_center clearfix">
-							<a class="s_button_1 s_secondary_color_bgr s_ml_0"
-								href="/myshop/cart/view"><span class="s_text">Корзина</span></a>
-							<a class="s_button_1 s_secondary_color_bgr"
-								href="/myshop/cart/checkout"><span class="s_text">Замовлення</span></a>
-						</div>
+						<c:set var = "showTotal"  value = ""/>
+						<c:if test="${PIB.productBeans.size() == 0}">
+							<c:set var = "showTotal"  value = "hidden"/>
 						</c:if>
+						<div class = "${showTotal}" id = "totalDiv">
+							<div class="s_total ">
+								<strong class="cart_module_total left">Загальна сума:</strong><span
+									class="cart_module_total" id = "totalPriceSpan">${PIB.totalPrice }<span
+									class="s_currency s_after">₴</span></span>
+							</div>
+							<span class="clear s_mb_15"></span>
+							<div class="align_center clearfix">
+								<a class="s_button_1 s_secondary_color_bgr s_ml_0"
+									href="${pageContext.request.contextPath}/cart/view"><span class="s_text">Корзина</span></a>						
+							</div>
+						</div>
+						
 					</div>
 				</div>
 
@@ -259,7 +225,7 @@
 						<ul>
 							<c:forEach items="${productTypes }" var="productType">
 								<li><a
-									href="/myshop/product/productCategory/${productType.id }">${productType.name }</a></li>
+									href="${pageContext.request.contextPath}/product/productCategory/${productType.id }">${productType.name }</a></li>
 							</c:forEach>
 						</ul>
 					</div>

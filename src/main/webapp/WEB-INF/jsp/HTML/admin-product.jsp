@@ -9,17 +9,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Малятко</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-
 
   <!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 <meta name="description" content="My Store" />
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/stylesheet/960.css" />" media="all" />
- 
-
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/resources/stylesheet/jquery.toast.min.css" />" media="all" />
+	
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/stylesheet/screen.css" />"
 	media="screen" />
@@ -33,20 +30,21 @@
 <![endif]-->
 
 <script type="text/javascript"
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+	src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript"
-	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
-
+	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
 <script type="text/javascript"
 	src="<c:url value="/resources/js/jquery/jquery.prettyPhoto.js" />"></script>
 <script type="text/javascript"
 	src="<c:url value="/resources/js/shoppica.js"/>"></script>
 <script type="text/javascript"
 	src="<c:url value="/resources/js/admin.js"/>"></script>
-
+<script type="text/javascript"
+	src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.js"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/js/toast/jquery.toast.min.js"/>"></script>		
+		
 </head>
-
-
 <body class="s_layout_fixed">
 
 	<div id="wrapper">
@@ -83,11 +81,11 @@
 					<input type="hidden" value="${product.id }" name="id" />
 					<div class="s_row_2 clearfix">
 						<label class="required"><strong>Name</strong></label> <input
-							name="name" type="text" size="85" value="${product.name }" />
+							name="name" title="Це поле обовязкове" required id = "name" type="text" size="85" value="${product.name }" />
 					</div>
 					<div class="s_row_2 clearfix">
 						<label><strong>Опис</strong></label>
-						<textarea name="description" rows="5" cols="85"></textarea>
+						<textarea title="Це поле обовязкове" required name="description"  rows="5" cols="85">${product.description }</textarea>
 					</div>
 
 					<table style="width: 100%" id="productQuantityTable">
@@ -139,13 +137,12 @@
 								</select>
 							</td>
 							<td><input class = "product-edit" name="quantity" type="number" /></td>
-							<td><a href="#" id="addQuantity"><img
+							<td><a href="#" class="addQuantityitem"><img
 									src="${pageContext.request.contextPath}/resources/images/add.png"
 									alt="Add"> </img></a></td>
 						</tr>
 					</table>
-
-					<a class="s_button_1 s_main_color_bgr left" id = "submit-button"><span class="s_text">Зберегти</span></a>
+					<a class="s_button_1 s_main_color_bgr left" onclick="$('#create').submit();" ><span class="s_text">Зберегти</span></a>
 				</form>
 				<br />
 			</div>
@@ -182,14 +179,11 @@
 								<a class = "removePhoto" class="s_button_add_to_cart" data-product-name = "${photo}" href="#" /><span class="s_icon"></span>Видалити</a>
 								</div>
 							</c:forEach>
-		
 					</div>
-
+					</div>
 				</c:if>
-
 				<div class="clear"></div>
 				<br />
-
 			</div>
 		</div>
 		<!-- ********************** -->

@@ -20,35 +20,45 @@ $(document).ready(function() {
 				console.log("ERROR : ",e);
 			}
 		});
-
 	});
 	
-	$("#submit-button").click(function() {
+	
+	$("#create").on('submit', function(e){
+		e.preventDefault();
+	})
+	
+	$("#create").validate({
+		submitHandler: function(form) {		
 		var url = "/myshop/admin/product/addProduct";
 		$.ajax({
-			 type: "POST",  
-			url: url,
-			  data : $("#create").serialize()
-			}).done(function() {
-				 Materialize.toast('Збережено', 4000) 
+			 type: "POST",
+			 url: url,
+			 data : $("#create").serialize()
+			}).done(function(data) {
+				$.toast({text : 'Збережено', position: 'top-left', icon: 'success', hideAfter: 2000});				
+				 setTimeout(function() {
+					 window.location = '/myshop/admin/product/edit/' + data;
+            		}, 2000);
 			});
+		}
 	});
 	
-		$("#addQuantity").live('click',
-			function(event) {
+	$(document).on('click', '.addQuantityitem', function(event) {
+		console.log("aa")
+		//$("#addQuantity").live('click',function(event) {
 				event.preventDefault();
 				var sizeOptions = '';
 				$('select[name="size"]:first option').each(function(key, value) {
 									sizeOptions = sizeOptions.concat(value.outerHTML);
-								});
+				});
 
 	var colorOptions = '';
-	$('select[name="color"]:first option')
-			.each(
+	$('select[name="color"]:first option').each(
 					function(key, value) {
 						colorOptions = colorOptions
 								.concat(value.outerHTML);
-														});
+	});
+	console.log("${pageContext.request.contextPath}")
 		var tr = "<tr><td><select class = 'product-edit' name='size'>"
 				+ sizeOptions
 				+ "</select></td>"
@@ -56,7 +66,7 @@ $(document).ready(function() {
 				+ colorOptions
 				+ "</select></td>"
 				+ "<td> <input  class = 'product-edit' name='quantity' type='number'  /></td>"
-				+ "<td><a href ='#' id = 'addQuantity'><img src='${pageContext.request.contextPath}/resources/images/add.png' alt='Add'> </img></a></td></tr>";
+				+ "<td><a href ='#' class = 'addQuantityitem'><img src='/myshop/resources/images/add.png' alt='Add'> </img></a></td></tr>";
 		$("#productQuantityTable tbody")
 				.append(tr);
 	});

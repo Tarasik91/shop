@@ -23,7 +23,9 @@ public class Order {
 	@Enumerated
 	private OrderStatus status;
 	@Column(name = "amount")
-	private double amount = 1;
+	private double amount;
+	@Column(name = "quantity")
+	private double quantity;
 	@Column(name = "firstName")
 	private String firstName;
 	@Column(name = "lastName")
@@ -110,4 +112,11 @@ public class Order {
 		this.dateCreated = dateCreated;
 	}
 
+	public double getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(double quantity) {
+		this.quantity = quantity;
+	}
 }

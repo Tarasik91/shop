@@ -73,14 +73,16 @@ public class ProductAdminController {
 		return body;
 	}
 
-	@RequestMapping(value = "/addProduct", method = RequestMethod.POST)
+	@RequestMapping(value = "/addProduct", method = RequestMethod.POST,  produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
 	public String updateProduct(@RequestParam("name") String name, @RequestParam("purchasePrice") double pPrice,
 			@RequestParam("sellingPrice") double sPrice, @RequestParam("description") String description,
 			@RequestParam("size") List<String> sizes, @RequestParam("color") List<String> colors,
 			@RequestParam("quantity") List<Integer> quantitys, @RequestParam("id") int id,
 			@RequestParam("productType") int productTypeId, Model uiModel, HttpServletRequest request) {
+		Product product = null;
 		if (isAdmin(request)) {
-			Product product = new Product();
+			product = new Product();
 			product.setDescription(description);
 			product.setName(name);
 			product.setPurchasePrice(pPrice);
@@ -106,7 +108,7 @@ public class ProductAdminController {
 				productQuantityDao.save(list);
 			}
 		}
-		return "redirect:/product/type/" + productTypeId + "/page/1";
+		return String.valueOf(product.getId());
 	}
 
 	@RequestMapping(path = "/delete/{id}", method = RequestMethod.GET)
@@ -141,8 +143,9 @@ public class ProductAdminController {
 	@RequestMapping("/add")
 	public String add(Model uiModel) {
 		uiModel.addAttribute("isAdmin", true);
-		ProductBean productForm = new ProductBean();
-		uiModel.addAttribute("productForm", productForm);
+		ProductBean bean = new ProductBean();
+	
+		uiModel.addAttribute("product", bean);
 		uiModel.addAttribute("sizes", Size.values());
 		uiModel.addAttribute("colors", Color.values());
 		uiModel.addAttribute("productTypes", productTypeDao.findAll());

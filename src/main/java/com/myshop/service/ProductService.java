@@ -1,5 +1,6 @@
 package com.myshop.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +19,6 @@ import com.myshop.dao.ProductQuantityDao;
 import com.myshop.dao.ProductTypeDao;
 import com.myshop.model.Product;
 import com.myshop.model.ProductInBasket;
-import com.myshop.model.ProductInOrder;
 import com.myshop.model.ProductQuantity;
 import com.myshop.model.ProductType;
 import com.myshop.model.enums.Color;
@@ -41,14 +41,17 @@ public class ProductService {
 		ProductBean bean = new ProductBean();
 		HttpSession session = request.getSession();
 		Map<Integer, Integer> map = (Map<Integer, Integer>) session.getAttribute("productIdsMap");
+		List<Product> products = new ArrayList<Product>();
 		if (map != null) {
 			ProductInBasket pib = new ProductInBasket();
 			Set<Integer> productIds = map.keySet();
 			if (productIds.size() > 0) {
-				List<Product> products = productDao.findByIds(productIds);
-				uiModel.addAttribute("PIB", pib.getProductInBasketBeanList(products, map));
+				products = productDao.findByIds(productIds);
+				//uiModel.addAttribute("PIB", pib.getProductInBasketBeanList(products, map));
 			}
 		}
+		ProductInBasket pib = new ProductInBasket();
+		uiModel.addAttribute("PIB", pib.getProductInBasketBeanList(products, map));
 		Product product = productDao.findById(id);
 		Map<String, Integer> quantityMap = getQuantity(product);
 		List<ProductType> productTypes = productTypeDao.findAll();
@@ -87,29 +90,30 @@ public class ProductService {
 		}
 	}
 
-	public Model viewByTypeAndPage(HttpServletRequest request, Model uiModel, int categoryId, int pageNumber, OrderingType orderingType) {
+	public Model viewByTypeAndPage(HttpServletRequest request, Model uiModel, int categoryId, int pageNumber, OrderingType orderingType, String realPath) {
 		HttpSession session = request.getSession();
 		Map<Integer, Integer> map = (Map<Integer, Integer>) session.getAttribute("productIdsMap");
 		Object isAdmin = session.getAttribute("isAdminLogined");
 		if (isAdmin != null && (Boolean) isAdmin) {
 			uiModel.addAttribute("isAdmin", true);
 		}
-		ProductBean bean = new ProductBean();
+		List<Product> products = new ArrayList<Product>();
+		ProductBean bean = new ProductBean(realPath);
 		List<ProductType> productTypes = productTypeDao.findAll();
 		double totalPrice = 0;
 		int count = 0;
 		if (map != null) {
-			totalPrice = (double) session.getAttribute("totalPrice");
+			//totalPrice = (double) session.getAttribute("totalPrice");
 			for (int key : map.keySet()) {
 				count += map.get(key);
 			}
-			ProductInBasket pib = new ProductInBasket();
 			Set<Integer> productIds = map.keySet();
 			if (productIds.size() > 0) {
-				List<Product> products = productDao.findByIds(productIds);
-				uiModel.addAttribute("PIB", pib.getProductInBasketBeanList(products, map));
+				products = productDao.findByIds(productIds);
 			}
 		}
+		ProductInBasket pib = new ProductInBasket();
+		uiModel.addAttribute("PIB", pib.getProductInBasketBeanList(products, map));
 		ProductType type = productTypeDao.findById(categoryId);
 		uiModel.addAttribute("productType", type);
 		PaginationModel<Product> model = productDao.findByTypeAndPage(categoryId, pageNumber, orderingType);

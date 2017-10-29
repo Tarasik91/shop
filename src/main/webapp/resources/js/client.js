@@ -1,9 +1,24 @@
 $(document).ready(function() {
-	$(".remove-product").click(function() {
-		var $theAnchor = $(this);
-		$theAnchor.closest("div").remove();
-	});
-		
+	
+	 $("#checkout_form").validate({
+		 submitHandler: function(form) {
+				$.ajax({
+					 type: "POST",          
+			         url: '/myshop/order/save',
+			         data : $('#checkout_form').serialize(),
+					}).done(function() {
+						$.toast({text : 'Ваша заявка оформлена. Дякуємо за покупку', position: 'top-left', icon: 'success', hideAfter: 2000});
+		            	 setTimeout(function() {
+		            		 window.location = '/myshop';
+		            		}, 2000);
+					});
+		 }
+	   }); //end validate
+	
+	$("#checkout_form").on('submit', function(e){
+		e.preventDefault();
+	})
+	
 	$("#deliveryType").change(function(){
 		if ($(this).val() == "NEW_MAIL"){
 			$("#citySection").removeClass("hidden");
@@ -77,11 +92,12 @@ $(document).ready(function() {
             data :data,
             success: function (response) {
             	var cities = [];
-            	
+            	var a=[]
             	$.each(response.data, function( index, val ) {
             		cities.push({"value": val.Ref, "label": val.Description});
             	});
-            	$( "#cities" ).autocomplete({
+            	
+            	$("#cities").autocomplete({
             	      source: cities,
             	      select: function(event, ui) {
             	          event.preventDefault();
@@ -95,6 +111,9 @@ $(document).ready(function() {
             	      }
             	});
             },
+            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                console.log("Status: " + textStatus, "Error: " + errorThrown); 
+            }   
         })
 	}
 });	

@@ -3,20 +3,20 @@ package com.myshop.controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.myshop.bean.OrderBean;
 import com.myshop.bean.ProductInBasketBean;
 import com.myshop.dao.OrderDao;
 import com.myshop.dao.ProductDao;
@@ -26,6 +26,7 @@ import com.myshop.model.ProductInOrder;
 import com.myshop.model.enums.DeliveryType;
 import com.myshop.model.enums.OrderStatus;
 import com.myshop.model.enums.PaidType;
+import com.myshop.util.MailService;
 
 @Controller
 @RequestMapping("/order")
@@ -36,7 +37,9 @@ public class OrderController {
 	private ProductDao productDao;
 	@Autowired
 	private ProductInOrderDao productInOrderDao;
-	@RequestMapping("/save")
+	
+	@RequestMapping(path = "/save",  method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE )
+	@ResponseBody
 	public String saveOrder(HttpServletResponse response,
 							HttpServletRequest request,
 			@RequestParam("firstName") String firstName,
@@ -44,24 +47,33 @@ public class OrderController {
 			@RequestParam("email") String email,
 			@RequestParam("telephone") String telephone,
 			@RequestParam("address") String address){
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(true);
+		List<ProductInBasketBean> products = (List<ProductInBasketBean>) session.getAttribute("productList");
+		session.getAttributeNames();
+		double amount = 0;
+		double quantity = 0;
+		for(ProductInBasketBean product: products){
+			amount += product.getPrice() * product.getQuantity();
+			quantity += product.getQuantity();
+		}
 		Order order = new Order();
 		order.setFirstName(firstName);
 		order.setLastName(lastName);
 		order.setAddress(address);
 		order.setEmail(email);
 		order.setTelephone(telephone);
-		order.setAmount( (double) session.getAttribute("totalPrice"));
+		order.setQuantity(quantity);
+		order.setAmount(amount);
 		orderDao.add(order);		
 		
-		List<ProductInBasketBean> products = (List<ProductInBasketBean>) session.getAttribute("productIdsMap");
 		productInOrderDao.addProducts(getProducts(products, order));
 		request.getSession().setAttribute("productIdsMap", null);
+		request.getSession().setAttribute("productList", null);
+		new MailService().send(order);
 		return "redirect:/product/cards";
 	}
 	
 	private List<ProductInOrder> getProducts(List<ProductInBasketBean> products, Order order){
-		
 		List<ProductInOrder> result = new ArrayList<>();
 		if (products !=null &&  products.size() > 0){
 			for(ProductInBasketBean product : products){

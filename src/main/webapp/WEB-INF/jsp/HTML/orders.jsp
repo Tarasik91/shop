@@ -8,8 +8,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en" xml:lang="en" xmlns:fb="http://www.facebook.com/2008/fbml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Your Store</title>
-<meta name="description" content="My Store" />
+<title>Малятко</title>
+<meta name="description" content="Малятко" />
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/stylesheet/960.css" />" media="all" />
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/stylesheet/screen.css" />" media="screen" />
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/stylesheet/color.css" />" media="screen" />
@@ -17,8 +17,11 @@
 <link rel="stylesheet" type="text/css" href="stylesheet/ie.css" media="screen" />
 <![endif]-->
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+	
 <script type="text/javascript" src="<c:url value="/resources/js/shoppica.js"/>" ></script>
 
 </head>
@@ -81,8 +84,7 @@
               <dt>Покупець:</dt>
               <dd>${order.lastName } ${order.firstName }</dd>
               <dt>Продуктів:</dt>
-              <dd>1</dd>
-
+              <dd>${order.quantity}</dd>
             </dl>
             <span class="clear border_eee"></span>
             <br />

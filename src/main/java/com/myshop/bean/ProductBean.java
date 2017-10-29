@@ -107,6 +107,7 @@ public class ProductBean {
 		if (id != 0) {
 			String path = realPath + "resources\\image\\";
 			File directory = new File(path + id);
+			System.out.println("directory = " + directory.toString());
 			if (directory.exists() && directory.list().length != 0) {
 				return "\\resources\\image\\" + id + "\\" + directory.list()[0];
 			}
@@ -173,5 +174,8 @@ public class ProductBean {
 			}
 		}
 		return result;
+	}
+	public ProductBean(String realPath){
+		this.realPath = realPath;
 	}
 }
