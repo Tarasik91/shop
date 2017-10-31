@@ -53,7 +53,7 @@
 	            <h2><a href="/myshop/product/view/<c:out value="${product.id}" />">${product.name }</a></h2>
 	            <p class="s_desc">${product.description} </p>
 	            <div class="s_price_holder">
-	              <p class="s_price"> <span class="s_currency s_before">$</span>${product.sellingPrice }</p>
+	              <p class="s_price"> $ ${product.sellingPrice }</p>
 	            </div>
 	          </div>
           
