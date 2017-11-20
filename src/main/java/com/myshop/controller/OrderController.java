@@ -26,7 +26,7 @@ import com.myshop.model.ProductInOrder;
 import com.myshop.model.enums.DeliveryType;
 import com.myshop.model.enums.OrderStatus;
 import com.myshop.model.enums.PaidType;
-import com.myshop.util.MailService;
+import com.myshop.service.MailService;
 
 @Controller
 @RequestMapping("/order")
@@ -37,6 +37,8 @@ public class OrderController {
 	private ProductDao productDao;
 	@Autowired
 	private ProductInOrderDao productInOrderDao;
+	@Autowired 
+	private MailService mailService;
 	
 	@RequestMapping(path = "/save",  method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE )
 	@ResponseBody
@@ -52,6 +54,9 @@ public class OrderController {
 		session.getAttributeNames();
 		double amount = 0;
 		double quantity = 0;
+		if(products == null){
+			return "redirect:/product/cards";
+		}
 		for(ProductInBasketBean product: products){
 			amount += product.getPrice() * product.getQuantity();
 			quantity += product.getQuantity();
@@ -69,7 +74,7 @@ public class OrderController {
 		productInOrderDao.addProducts(getProducts(products, order));
 		request.getSession().setAttribute("productIdsMap", null);
 		request.getSession().setAttribute("productList", null);
-		new MailService().send(order);
+		mailService.send(order);
 		return "redirect:/product/cards";
 	}
 	
