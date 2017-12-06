@@ -7,7 +7,7 @@
 	xml:lang="en" xmlns:fb="http://www.facebook.com/2008/fbml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Your Store</title>
+<title>Малятко</title>
 <meta name="description" content="Малятко" />
 <meta property="og:image" content="images/dummy/pic_1.jpg" />
 <link rel="stylesheet" type="text/css"
