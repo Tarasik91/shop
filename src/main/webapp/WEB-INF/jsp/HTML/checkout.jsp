@@ -128,11 +128,12 @@
 					</div>
 					<div class="s_row_2  hidden " id = "deparmtmentNewMailSection">
 					<label>Відділення</label> 
-						<select style="width: 99%;"  id ="departmantNewMail" ></select>
+						<select style="width: 99%;" name = "newMailAddress"  id ="departmantNewMail" ></select>
 					</div>
 					<div class = "clearfix"></div>
 						<div class="s_row_3 clearfix">
-								<label>Адреса: *</label> <input name="address" style="width: 99%;" type="text" class="required"
+								<label>Адреса: *</label> 
+								<input name="address" style="width: 99%;" type="text" class="required"
 									 title="Це поле обовязкове" />
 							</div>
 												<div>

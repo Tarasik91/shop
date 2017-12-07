@@ -83,29 +83,28 @@
   </div>
   <!-- end of intro -->
 
-  <input type = "hidden" id = "orderId" value="${order.id}" >
-  <!-- ********************** --> 
-  <!--      C O N T E N T     -->
-  <!-- ********************** --> 
   <div id="content" class="container_16">
 
     <div id="order_details" class="grid_16">
+	  <input type = "hidden" id = "orderId" value="${order.id}" />
 
       <div class="s_order clearfix">
 
-        <p class="s_id"><span class="s_999">Номер заявки</span> <span class="s_main_color">#4</span></p>
-
+        <p class="s_id"><span class="s_999">Номер заявки</span> <span class="s_main_color">#${order.id}</span></p>
         <span class="clear border_eee"></span>
-        
         <dl class="grid_5 alpha clearfix">
           <dt>E-Mail</dt>
           <dd>${order.email }</dd>
           <dt>Телефон</dt>
           <dd>${order.telephone }</dd>
           <dt>Тип доставки</dt>
-          <dd></dd>
+          <dd>${order.deliveryType.name }</dd>
           <dt>Тип оплати</dt>
-          <dd></dd>
+          <dd>${order.paidType.name}</dd>
+          <dt>Адреса</dt>
+          <dd>${order.address }</dd>
+          <dt>Відділ нової пошти</dt>
+          <dd>${order.newMailAddress }</dd>
           <dt>Статус</dt>
           
           <dd><select name="status" id = "orderStatus">
@@ -116,16 +115,6 @@
 			</select></dd>
         </dl>
         
-        <span class="clear border_eee"></span>
-        <div class="grid_7 alpha">
-          <h2>Payment Address</h2>
-          <p>Pinko Pinkov<br />Pinkotown<br />Pinkotown 000000<br />Varna<br />Bulgaria</p>
-        </div>
-        <div class="grid_7 omega">
-          <h2>Shipping Address</h2>
-          <p>Pinko Pinkov<br />Pinkotown<br />Pinkotown 000000<br />Varna<br />Bulgaria</p>
-        </div>
-
         <span class="clear border_eee"></span>
 
         <h2>Product</h2>
@@ -153,31 +142,8 @@
             <td class="s_secondary_color"><span class="s_currency s_before">$</span>${total }</td>
           </tr>
         </table>
-
-
-        <h2>Order History</h2>
-        <table class="s_table" width="100%" cellpadding="0" cellspacing="0" border="0">
-          <tr>
-            <th>Date Added</th>
-            <th>Status</th>
-            <th>Comments</th>
-          </tr>
-          <tr>
-            <td>07/04/2011</td>
-            <td>Canceled</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>07/04/2011</td>
-            <td>Reversed</td>
-            <td>Pellentesque et diam at orci convallis ultrices in nec eros! Duis sit amet felis vitae diam vehicula pretium. Morbi pulvinar elit et quam feugiat quis aliquet neque venenatis? Suspendisse nisi arcu; semper eget convallis id, hendrerit eu odio. Nunc leo metus, malesuada nec congue in, rutrum vel risus. Mauris cras amet.</td>
-          </tr>
-        </table>
-        
       </div>
-
     </div>
-
     <div class="clear"></div>
 
   </div>

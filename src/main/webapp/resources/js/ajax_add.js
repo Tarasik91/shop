@@ -1,4 +1,19 @@
 $(document).ready(function () {
+	$("#product-comment-submit").click(function(){
+		var comment = $("#comment").val();
+		var autor = $("#autor").val();
+		var productId = $("#")
+		var raiting;
+		$.ajax({
+			type: "POST",          
+	        url: '/myshop/product/comment/save',
+	        data : {comment:comment, autor:autor},
+			}).done(function() {
+				$.toast({text : 'Ваша заявка оформлена. Дякуємо за покупку', position: 'top-left', icon: 'success', hideAfter: 2000});
+		});
+	});	
+
+	
     $('#add_to_cart').removeAttr('onclick');
     
     $(".remove-product").click(function(e) {

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 
 import com.myshop.bean.ProductBean;
+import com.myshop.dao.ProductCommentDao;
 import com.myshop.dao.ProductDao;
 import com.myshop.dao.ProductInOrderDao;
 import com.myshop.dao.ProductQuantityDao;
@@ -36,7 +37,9 @@ public class ProductService {
 	private ProductQuantityDao productQuantityDao;
 	@Autowired
 	private ProductInOrderDao productInOrderDao;
-
+	@Autowired
+	private ProductCommentDao productCommentDao;
+	
 	public Model viewProduct(Model uiModel, HttpServletRequest request, int id, String realPath) {
 		ProductBean bean = new ProductBean();
 		HttpSession session = request.getSession();
@@ -60,6 +63,7 @@ public class ProductService {
 		uiModel.addAttribute("colors", Color.values());
 		uiModel.addAttribute("sizes", Size.values());
 		uiModel.addAttribute("product", bean.getProductBean(product, realPath));
+		uiModel.addAttribute("comments", productCommentDao.findByProduct(product));
 		return uiModel;
 	}
 

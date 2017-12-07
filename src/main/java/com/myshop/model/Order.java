@@ -10,7 +10,9 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import com.myshop.model.enums.DeliveryType;
 import com.myshop.model.enums.OrderStatus;
+import com.myshop.model.enums.PaidType;
 
 @Entity
 @Table(name = "customer_order")
@@ -39,7 +41,11 @@ public class Order {
 	@Column(name = "date_created")
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime dateCreated;
-
+	@Enumerated
+	private DeliveryType deliveryType;
+	@Enumerated
+	private PaidType paidType;
+	private String newMailAddress;
 	public int getId() {
 		return id;
 	}
@@ -119,4 +125,29 @@ public class Order {
 	public void setQuantity(double quantity) {
 		this.quantity = quantity;
 	}
+
+	public DeliveryType getDeliveryType() {
+		return deliveryType;
+	}
+
+	public void setDeliveryType(DeliveryType deliveryType) {
+		this.deliveryType = deliveryType;
+	}
+
+	public String getNewMailAddress() {
+		return newMailAddress;
+	}
+
+	public void setNewMailAddress(String newMailAddress) {
+		this.newMailAddress = newMailAddress;
+	}
+
+	public PaidType getPaidType() {
+		return paidType;
+	}
+
+	public void setPaidType(PaidType paidType) {
+		this.paidType = paidType;
+	}	
+	
 }

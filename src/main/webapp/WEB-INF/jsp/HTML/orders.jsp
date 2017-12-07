@@ -95,13 +95,9 @@
  		</c:forEach>
       </div>
 
-      <a href="invoice.html" class="s_button_1 s_main_color_bgr"><span class="s_text">Continue</span></a>
-
       <div class="clear"></div>
       <br />
-
       <br />
-
     </div>
     
   </div>

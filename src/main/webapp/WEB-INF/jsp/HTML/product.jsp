@@ -7,7 +7,7 @@
 <html >
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Your Store</title>
+<title>Малятко</title>
 <meta name="description" content="My Store" />
 <meta property="og:image" content="images/dummy/pic_1.jpg" />
 
@@ -37,6 +37,7 @@
 	src="<c:url value="/resources/js/shoppica.js"/>"></script>
 <script type="text/javascript"
 	src="<c:url value="/resources/js/ajax_add.js"/>"></script>
+	
 <script type="text/javascript">
 	$(document)
 			.ready(
@@ -121,23 +122,14 @@
 				<div class="clear"></div>
 				<div class="s_tabs grid_12 alpha omega">
 					<ul class="s_tabs_nav clearfix">
-						<li><a href="#product_description">Опис</a></li>
 						<li><a href="#product_reviews">Відгуки </a></li>
 					</ul>
-					<div class="s_tab_box">
-
-						<div id="product_description">
-							<div class="cpt_product_description ">
-								Engineered with pro-level features and performance.<br />
-
-							</div>
-							<!-- cpt_container_end -->
-						</div>
-
+					<div class="s_tab_box">						
 						<div id="product_reviews" class="s_listing">
+							<c:forEach var="comment" items="${comments}">
 							<div class="s_review last">
 								<p class="s_author">
-									<strong>Shoppica</strong><small>(29/03/2011)</small>
+									<strong>$comment.autor</strong><small>($comment.dateCreated)</small>
 								</p>
 								<div class="right">
 									<div class="s_rating_holder">
@@ -148,25 +140,25 @@
 									</div>
 								</div>
 								<div class="clear"></div>
-								<p>Vestibulum molestie tellus rhoncus nulla cursu</p>
+								<p>$comment.comment</p>
 							</div>
-							<div class="pagination">
-								<div class="results">Showing 1 to 1 of 1 (1 Pages)</div>
-							</div>
+							</c:forEach>
+							<c:if test="${commnets.size() > 0}">
+								<div class="pagination">							
+									<div class="results">Showing 1 to 1 of 1 (1 Pages)</div>
+								</div>
+							</c:if>
 							<h2 class="s_title_1">
 								<span class="s_main_color">Write</span> Review
 							</h2>
 							<div id="review_title" class="clear"></div>
 							<div class="s_row_3 clearfix">
-								<label><strong>Your Name:</strong></label> <input type="text" />
+								<label><strong>Ваше імя:</strong></label> <input name = "autor" id = "autor" type="text" />
 							</div>
 							<div class="s_row_3 clearfix">
-								<label><strong>Your Review:</strong></label>
-								<textarea style="width: 98%;" rows="8"></textarea>
-								<p class="s_legend">
-									<span style="color: #FF0000;">Note:</span> HTML is not
-									translated!
-								</p>
+								<label><strong>Ваш відгук:</strong></label>
+								<textarea id = "comment" style="width: 98%;" rows="6"></textarea>
+								
 							</div>
 							<div class="s_row_3 clearfix">
 								<label><strong>Rating</strong></label> <span class="clear"></span>
@@ -175,15 +167,12 @@
 									type="radio" /> &nbsp; <input type="radio" /> &nbsp; <span>Good</span>
 							</div>
 							<span class="clear border_ddd"></span> <a
-								class="s_button_1 s_main_color_bgr"><span class="s_text">Continue</span></a>
+								class="s_button_1 s_main_color_bgr" id = "product-comment-submit"><span class="s_text">Continue</span></a>
 							<span class="clear"></span>
 						</div>
-
 					</div>
 				</div>
-
 			</div>
-
 
 			<div id="right_col" class="grid_3">
 				<div id="cart_side" class="s_box_1 s_cart_holder">
@@ -214,8 +203,7 @@
 								<a class="s_button_1 s_secondary_color_bgr s_ml_0"
 									href="${pageContext.request.contextPath}/cart/view"><span class="s_text">Корзина</span></a>						
 							</div>
-						</div>
-						
+						</div>						
 					</div>
 				</div>
 
@@ -231,13 +219,7 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
-		<!-- end of content -->
-
-		<!-- ********************** -->
-		<!--   S H O P   I N F O    -->
-		<!-- ********************** -->
 		<div id="shop_info">
 			<div id="shop_info_wrap">
 				<%@include file="block/contact.jsp"%>
@@ -248,5 +230,4 @@
 	<!-- end of shop info -->
 
 </body>
-
 </html>
