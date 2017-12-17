@@ -8,8 +8,6 @@
 <title>Малятко</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-
-
 <meta name="description" content="My Store" />
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/stylesheet/960.css" />" media="all" />

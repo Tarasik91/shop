@@ -100,10 +100,11 @@
 									<p class="s_price">
 										<span class="s_currency s_before"></span>${p.sellingPrice } ₴
 									</p>
+								<!--  
 									<p class="s_rating s_rating_5">
 										<span style="width: 60%;" class="s_percent"></span>
 									</p>
-									
+								-->
 									<c:if test="${isAdmin}">
 										<a class="s_button_add_to_cart"
 											href="/myshop/admin/product/edit/<c:out value="${p.id}" />"> 
@@ -180,6 +181,7 @@
 					</div>
 				</div>
 
+		<!--  
 				<div id="categories_module" class="s_box">
 					<h2>Categories</h2>
 					<div class="s_list_1">
@@ -192,6 +194,7 @@
 					</div>
 				</div>
 			</div>
+		--> 
 		</div>
 		<!-- end of content -->
 

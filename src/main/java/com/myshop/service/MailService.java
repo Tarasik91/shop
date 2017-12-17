@@ -74,8 +74,4 @@ public class MailService {
 		}
 		return email.toString();
 	}
-
-	public static void main(String[] args) {
-		new MailService().send(null);
-	}
 }

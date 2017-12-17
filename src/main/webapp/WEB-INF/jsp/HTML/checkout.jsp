@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en"
 	xml:lang="en" xmlns:fb="http://www.facebook.com/2008/fbml">
 <head>
-<title>Your Store</title>
+<title>Малятко</title>
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/stylesheet/960.css" />" media="all" />
 	<link rel="stylesheet" type="text/css"
@@ -61,9 +61,9 @@
 			<div id="intro_wrap">
 				<div class="container_12">
 					<div id="breadcrumbs" class="grid_12">
-						<a href="/">Початкова</a> &gt; <a href="">Checkout</a>
+						<a href="/">Початкова</a> &gt; <a href="">Оформлення заявки</a>
 					</div>
-					<h1>Checkout</h1>
+					<h1>Оформення</h1>
 				</div>
 			</div>
 		</div>
@@ -77,9 +77,6 @@
 					<h2>Дані про оплату</h2>
 					<div>
 						<div class="grid_6 alpha">
-							<h3>
-								<span class="s_secondary_color">Ваші</span> Особисті дані
-							</h3>
 							<div class="s_row_2 clearfix">
 								<label>Імя: *</label> <input name="firstName" type="text" required id = "firstName"  title="Це поле обовязкове"/>
 							</div>
@@ -88,16 +85,11 @@
 							</div>
 							<div class="s_row_2 clearfix">
 								<label>E-Mail: *</label> 
-								<input name="email" required type="text"/>
+								<input name="email" required type="email" title="Це поле обовязкове"/>
 							</div>
-							
-							
+	
 						</div>
 						<div class="grid_6 omega">
-							<h3>
-								<span class="s_secondary_color">Your</span> Address
-							</h3>
-
 							<div class="s_row_2 clearfix">
 								<label>Телефон: *</label> <input required name="telephone" title="Це поле обовязкове" type="text"
 								 />
@@ -131,13 +123,13 @@
 						<select style="width: 99%;" name = "newMailAddress"  id ="departmantNewMail" ></select>
 					</div>
 					<div class = "clearfix"></div>
-						<div class="s_row_3 clearfix">
-								<label>Адреса: *</label> 
-								<input name="address" style="width: 99%;" type="text" class="required"
+						<div class="s_row_3" id = "addressBlock">
+								<label>Адреса: </label> 
+								<input name="address" id = "address" style="width: 99%;" type="text" 
 									 title="Це поле обовязкове" />
 							</div>
-												<div>
-						<div class="clear"></div>
+					<div>
+						<div class="clearfix"></div>
 						<h3>
 							коментарі
 						</h3>
@@ -146,7 +138,7 @@
 						</div>
 
 					</div>
-					<a class="s_button_1 s_main_color_bgr" id = "checkout-submit" href= "#" onclick="$('#checkout_form').submit();"><span class="s_text">Finish</span></a>
+					<a class="s_button_1 s_main_color_bgr" id = "checkout-submit" href= "#" onclick="$('#checkout_form').submit();"><span class="s_text">Заповнити</span></a>
 							<div class="s_row_2 clearfix" id = "deparmtmentMapSection">
 							  <div id="map"></div>
 							</div>
@@ -176,6 +168,5 @@
 		</div>
 		<!-- end of shop info -->
 	</div>
-
 </body>
 </html>

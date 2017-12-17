@@ -1,15 +1,24 @@
+function formatDate(date){
+	return date.dayOfMonth + '-' + date.monthOfYear + '-' + date.year + ' ' + date.hourOfDay + ':' + date.minuteOfHour;
+}
 $(document).ready(function () {
 	$("#product-comment-submit").click(function(){
 		var comment = $("#comment").val();
 		var autor = $("#autor").val();
-		var productId = $("#")
+		var productId = $("#productId").val();
 		var raiting;
 		$.ajax({
 			type: "POST",          
 	        url: '/myshop/product/comment/save',
-	        data : {comment:comment, autor:autor},
-			}).done(function() {
-				$.toast({text : 'Ваша заявка оформлена. Дякуємо за покупку', position: 'top-left', icon: 'success', hideAfter: 2000});
+	        data : {comment:comment, autor:autor, productId:productId},
+			}).done(function(data) {
+				console.log(data)
+				var container = '<div class="s_review last"> <p class="s_author"><strong>' + data.autor 
+				+ '</strong><small>' + formatDate(data.dateCreated) + '</small></p>'
+				+ '<div class="clear"></div><p>' + data.comment + '</p></div>'
+				$("#commentContainer").append(container);
+				$("#comment").val("");
+				$("#autor").val("");
 		});
 	});	
 
@@ -116,9 +125,9 @@ $(document).ready(function () {
             	var divElement = "<div class='s_cart_item'>";
             	$.each( products, function( key, value ) {
             		var aElement = "<a  class='s_button_remove' data-product-id = '" + value.id +"' >&nbsp;</a>";
-            		var spanElement = "<span class='block'>" + value.quantity + " x " +  "<a href='/myshop/product/view/" +value.id + "'>"+ 
+            		var spanElement = "<span class='block'>" + value.quantity + "x " +  "<a href='/myshop/product/view/" +value.id + "'>"+ 
             		value.name +"</a></span>";
-            		html = html  + divElement + aElement +spanElement +  "</div>"
+            		html = html  + divElement + aElement + spanElement +  "</div>"
             	});
             	
                 $('#productInBasket').html(html);

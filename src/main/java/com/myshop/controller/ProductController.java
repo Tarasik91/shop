@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.myshop.dao.ProductCommentDao;
+import com.myshop.dao.ProductDao;
+import com.myshop.model.Product;
 import com.myshop.model.ProductComment;
 import com.myshop.model.enums.OrderingType;
 import com.myshop.service.ProductService;
@@ -26,6 +28,8 @@ public class ProductController {
 	@Autowired
 	private ProductService service;
 	
+	@Autowired
+	private ProductDao productDao;
 	@Autowired
 	private ProductCommentDao productCommentDao;
 	@RequestMapping("/view/{id}")
@@ -45,12 +49,14 @@ public class ProductController {
 	
 	@RequestMapping(value = "/comment/save", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public String commnetSave(@RequestParam("comment") String comment, @RequestParam("autor") String autor){
+	public ProductComment comentSave(@RequestParam("productId") int productId, @RequestParam("comment") String comment, @RequestParam("autor") String autor){
 		ProductComment productComment = new ProductComment();
 		productComment.setAutor(autor);
 		productComment.setComment(comment);
+		Product product = productDao.findById(productId);
+		productComment.setProduct(product);
 		productComment.setDateCreated(DateTime.now());
 		productCommentDao.save(productComment);
-		return "";
+		return productComment;
 	}
 }

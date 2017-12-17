@@ -1,7 +1,7 @@
 jQuery( function($) {
 
   var site_options = {
-    'main_color'      : '#71b013',
+    'main_color'      : '#c61aff',
     'secondary_color' : '#ff9900'      
   }
 

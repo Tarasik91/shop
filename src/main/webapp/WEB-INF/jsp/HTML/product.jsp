@@ -1,8 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <html >
 <head>
@@ -52,6 +54,7 @@
 </script>
 </head>
 <body class="s_layout_fixed">
+<input type="hidden" value="${product.id }" name="productId" id = "productId" />
 	<div id="wrapper">
 		<!--      H E A D E R       -->
 		<!-- ********************** -->
@@ -103,12 +106,13 @@
 								<dd>${entry.value}</dd>
 							</c:if>
 						</c:forEach>
-
+<!-- 
 						<dd>
 							<p class="s_rating s_rating_5">
 								<span style="width: 100%;" class="s_percent"></span>
 							</p>
 						</dd>
+ -->
 					</dl>
 					<div id="product_buy" class="clearfix">
 						<label for="product_buy_quantity">Кількість:</label> <input
@@ -126,12 +130,16 @@
 					</ul>
 					<div class="s_tab_box">						
 						<div id="product_reviews" class="s_listing">
+							<div id = "commentContainer">
 							<c:forEach var="comment" items="${comments}">
 							<div class="s_review last">
 								<p class="s_author">
-									<strong>$comment.autor</strong><small>($comment.dateCreated)</small>
+									<strong>${comment.autor}</strong>
+										<small>
+											(<joda:format pattern="dd-MM-yyyy HH:mm" value="${comment.dateCreated}"/>)
+										</small>
 								</p>
-								<div class="right">
+					<%--			<div class="right">
 									<div class="s_rating_holder">
 										<p class="s_rating s_rating_5">
 											<span class="s_percent" style="width: 100%;"></span>
@@ -139,18 +147,12 @@
 										<span class="s_average">5 out of 5 Stars!</span>
 									</div>
 								</div>
+					--%>			
 								<div class="clear"></div>
-								<p>$comment.comment</p>
+								<p>${comment.comment}</p>
 							</div>
 							</c:forEach>
-							<c:if test="${commnets.size() > 0}">
-								<div class="pagination">							
-									<div class="results">Showing 1 to 1 of 1 (1 Pages)</div>
-								</div>
-							</c:if>
-							<h2 class="s_title_1">
-								<span class="s_main_color">Write</span> Review
-							</h2>
+							</div>
 							<div id="review_title" class="clear"></div>
 							<div class="s_row_3 clearfix">
 								<label><strong>Ваше імя:</strong></label> <input name = "autor" id = "autor" type="text" />
@@ -160,14 +162,15 @@
 								<textarea id = "comment" style="width: 98%;" rows="6"></textarea>
 								
 							</div>
-							<div class="s_row_3 clearfix">
+					<%--		<div class="s_row_3 clearfix">
 								<label><strong>Rating</strong></label> <span class="clear"></span>
 								<span>Bad</span>&nbsp; <input type="radio" /> &nbsp; <input
 									type="radio" /> &nbsp; <input type="radio" /> &nbsp; <input
 									type="radio" /> &nbsp; <input type="radio" /> &nbsp; <span>Good</span>
 							</div>
+					--%>		
 							<span class="clear border_ddd"></span> <a
-								class="s_button_1 s_main_color_bgr" id = "product-comment-submit"><span class="s_text">Continue</span></a>
+								class="s_button_1 s_main_color_bgr" id = "product-comment-submit"><span class="s_text">Прокоментувати</span></a>
 							<span class="clear"></span>
 						</div>
 					</div>
@@ -207,6 +210,7 @@
 					</div>
 				</div>
 
+<!--  
 				<div id="categories_module" class="s_box">
 					<h2>Categories</h2>
 					<div class="s_list_1">
@@ -218,6 +222,7 @@
 						</ul>
 					</div>
 				</div>
+-->
 			</div>
 		</div>
 		<div id="shop_info">

@@ -81,5 +81,4 @@ public class ProductComment {
 	public void setAutor(String autor) {
 		this.autor = autor;
 	}
-	
 }

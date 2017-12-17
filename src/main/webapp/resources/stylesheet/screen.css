@@ -484,6 +484,7 @@ input[type=hidden] {
   display: none;
 }
 input[type=text],
+input[type=email],
 input[type=number],
 input[type=password],
 textarea,

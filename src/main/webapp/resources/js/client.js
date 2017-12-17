@@ -23,10 +23,14 @@ $(document).ready(function() {
 		if ($(this).val() == "NEW_MAIL"){
 			$("#citySection").removeClass("hidden");
 			$("#deparmtmentMapSection").removeClass("hidden");
+			$("#addressBlock").addClass("hidden");
+			$("#address").prop("required", false);
 			getCitiesNewMail();
 		}else{
     		$("#deparmtmentNewMailSection").addClass("hidden");
     		$("#citySection").addClass("hidden");
+    		$("#addressBlock").removeClass("hidden");
+			$("#address").prop("required", true);
 		}
 	});
 	
@@ -116,6 +120,5 @@ $(document).ready(function() {
             }   
         })
 	}
-	
 });	
 

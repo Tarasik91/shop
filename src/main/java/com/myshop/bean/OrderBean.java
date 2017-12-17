@@ -3,10 +3,7 @@ package com.myshop.bean;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-
 import com.myshop.model.Order;
-import com.myshop.model.Product;
 
 public class OrderBean {
 	enum STATUS  {CANSELLED, COMPLATED, RESERVED};

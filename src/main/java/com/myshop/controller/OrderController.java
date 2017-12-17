@@ -48,7 +48,7 @@ public class OrderController {
 			@RequestParam("lastName") String lastName,
 			@RequestParam("email") String email,
 			@RequestParam("telephone") String telephone,
-			@RequestParam("address") String address){
+			@RequestParam(value = "address", required=false) String address){
 		HttpSession session = request.getSession(true);
 		List<ProductInBasketBean> products = (List<ProductInBasketBean>) session.getAttribute("productList");
 		session.getAttributeNames();
