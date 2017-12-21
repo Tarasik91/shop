@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.ui.Model;
 
 import com.myshop.bean.ProductBean;
@@ -40,21 +41,30 @@ public class ProductService {
 	@Autowired
 	private ProductCommentDao productCommentDao;
 	
-	public Model viewProduct(Model uiModel, HttpServletRequest request, int id, String realPath) {
-		ProductBean bean = new ProductBean();
+	public void addProductInBasketToModel(HttpServletRequest request, Model model){
 		HttpSession session = request.getSession();
 		Map<Integer, Integer> map = (Map<Integer, Integer>) session.getAttribute("productIdsMap");
+		int count = 0;
+		double totalPrice = 0;
 		List<Product> products = new ArrayList<Product>();
 		if (map != null) {
-			ProductInBasket pib = new ProductInBasket();
+			for (int key : map.keySet()) {
+				count += map.get(key);
+			}
 			Set<Integer> productIds = map.keySet();
 			if (productIds.size() > 0) {
 				products = productDao.findByIds(productIds);
-				//uiModel.addAttribute("PIB", pib.getProductInBasketBeanList(products, map));
 			}
+			
 		}
 		ProductInBasket pib = new ProductInBasket();
-		uiModel.addAttribute("PIB", pib.getProductInBasketBeanList(products, map));
+		model.addAttribute("PIB", pib.getProductInBasketBeanList(products, map));
+		model.addAttribute("totalPrice", totalPrice);
+		model.addAttribute("totalCount", count);
+	}
+	public Model viewProduct(Model uiModel, HttpServletRequest request, int id, String realPath) {
+		ProductBean bean = new ProductBean();
+		addProductInBasketToModel(request, uiModel);
 		Product product = productDao.findById(id);
 		Map<String, Integer> quantityMap = getQuantity(product);
 		List<ProductType> productTypes = productTypeDao.findAll();
@@ -96,28 +106,13 @@ public class ProductService {
 
 	public Model viewByTypeAndPage(HttpServletRequest request, Model uiModel, int categoryId, int pageNumber, OrderingType orderingType, String realPath) {
 		HttpSession session = request.getSession();
-		Map<Integer, Integer> map = (Map<Integer, Integer>) session.getAttribute("productIdsMap");
 		Object isAdmin = session.getAttribute("isAdminLogined");
 		if (isAdmin != null && (Boolean) isAdmin) {
 			uiModel.addAttribute("isAdmin", true);
 		}
-		List<Product> products = new ArrayList<Product>();
 		ProductBean bean = new ProductBean(realPath);
 		List<ProductType> productTypes = productTypeDao.findAll();
-		double totalPrice = 0;
-		int count = 0;
-		if (map != null) {
-			//totalPrice = (double) session.getAttribute("totalPrice");
-			for (int key : map.keySet()) {
-				count += map.get(key);
-			}
-			Set<Integer> productIds = map.keySet();
-			if (productIds.size() > 0) {
-				products = productDao.findByIds(productIds);
-			}
-		}
-		ProductInBasket pib = new ProductInBasket();
-		uiModel.addAttribute("PIB", pib.getProductInBasketBeanList(products, map));
+		addProductInBasketToModel(request, uiModel);
 		ProductType type = productTypeDao.findById(categoryId);
 		uiModel.addAttribute("productType", type);
 		PaginationModel<Product> model = productDao.findByTypeAndPage(categoryId, pageNumber, orderingType);
@@ -125,8 +120,6 @@ public class ProductService {
 		uiModel.addAttribute("products", bean.getArray(model.getList()));
 		uiModel.addAttribute("paginationModel", model);
 		uiModel.addAttribute("productTypes", productTypes);
-		uiModel.addAttribute("totalPrice", totalPrice);
-		uiModel.addAttribute("totalCount", count);
 		uiModel.addAttribute("orderingType", OrderingType.values());
 		return uiModel;
 	}

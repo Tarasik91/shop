@@ -1,6 +1,5 @@
 package com.myshop.controller;
 
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.joda.time.DateTime;
@@ -27,11 +26,12 @@ public class ProductController {
 
 	@Autowired
 	private ProductService service;
-	
+
 	@Autowired
 	private ProductDao productDao;
 	@Autowired
 	private ProductCommentDao productCommentDao;
+
 	@RequestMapping("/view/{id}")
 	public String viewProduct(@PathVariable("id") int id, Model uiModel, HttpServletRequest request) {
 		String realPath = request.getSession().getServletContext().getRealPath("/");
@@ -40,16 +40,18 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "/type/{id}/page/{pageNumber}", method = RequestMethod.GET)
-	public String getCardsByCategoryAndPage(HttpServletRequest request, Model uiModel, @PathVariable("id") int categoryId, 
-			@PathVariable("pageNumber") int pageNumber, @RequestParam(required = false, defaultValue = "PRICE_A", name = "sort") OrderingType sortType) {
+	public String getCardsByCategoryAndPage(HttpServletRequest request, Model uiModel,
+			@PathVariable("id") int categoryId, @PathVariable("pageNumber") int pageNumber,
+			@RequestParam(required = false, defaultValue = "PRICE_A", name = "sort") OrderingType sortType) {
 		String realPath = request.getSession().getServletContext().getRealPath("/");
 		service.viewByTypeAndPage(request, uiModel, categoryId, pageNumber, sortType, realPath);
 		return "HTML/listing_2";
 	}
-	
-	@RequestMapping(value = "/comment/save", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+
+	@RequestMapping(value = "/comment/save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ProductComment comentSave(@RequestParam("productId") int productId, @RequestParam("comment") String comment, @RequestParam("autor") String autor){
+	public ProductComment comentSave(@RequestParam("productId") int productId, @RequestParam("comment") String comment,
+			@RequestParam("autor") String autor) {
 		ProductComment productComment = new ProductComment();
 		productComment.setAutor(autor);
 		productComment.setComment(comment);

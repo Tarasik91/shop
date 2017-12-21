@@ -117,10 +117,11 @@
 					<div id="product_buy" class="clearfix">
 						<label for="product_buy_quantity">Кількість:</label> <input
 							id="product_id" name="product_id" type="number" hidden
-							value="${product.id }" /> <input id="product_buy_quantity"
-							type="text" value="1" size="2" name="product_buy_quantity" /> <a
-							id="add_to_cart" class="s_main_color_bgr"><span
-							class="s_text"><span class="s_icon"></span>В корзину</span></a>
+							value="${product.id }" /> 
+							<input id="product_buy_quantity" onkeypress="return event.charCode >= 48" type="number"  min="1"  value="1" size="3" name="product_buy_quantity" /> 
+							<a id="add_to_cart" class="s_main_color_bgr">
+							<span class="s_text"><span class="s_icon">
+							</span>В корзину</span></a>
 					</div>
 				</div>
 				<div class="clear"></div>

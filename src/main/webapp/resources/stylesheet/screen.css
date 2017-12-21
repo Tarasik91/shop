@@ -9,6 +9,10 @@
     min-width: 250px;
 }
 
+input[type="number"] {
+   width:50px;
+}
+
 *, td, th, input, textarea, select, button {
   margin: 0;
   padding: 0;
@@ -540,7 +544,7 @@ label {
 }
 label * {
   letter-spacing: 0;
-  font-family: "Lucida Sans Unicode", "Lucida Grande", Arial, sans-serif;
+  font-family: Arial, sans-serif;
 }
 label.s_disabled, label.s_disabled * {
   color: #9ea7ad !important;
