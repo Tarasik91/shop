@@ -32,7 +32,7 @@
   <div id="header" class="container_12">
     <div class="grid_12">
     
-   	<a id="site_logo" href="index.html">Shoppica store - Premium e-Commerce Theme</a> 
+   	<a id="site_logo" href="/myshop/">Shoppica store - Premium e-Commerce Theme</a> 
 
 	<%@include file="block/links.jsp"%>
 	<%@include file="block/header.jsp"%>
@@ -41,7 +41,6 @@
   </div>
   <!-- end of header --> 
   
-
   <!-- ********************** --> 
   <!--     I N T R O          -->
   <!-- ********************** --> 
@@ -57,7 +56,6 @@
     </div>
   </div>
   <!-- end of intro -->
-  
   
   <!-- ********************** --> 
   <!--      C O N T E N T     --> 

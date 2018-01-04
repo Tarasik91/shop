@@ -30,10 +30,11 @@ public class MainPageController {
 
 	@RequestMapping("/")
 	public String getIndexPage(Model model, HttpServletResponse response, HttpServletRequest request) {
+		String realPath = request.getSession().getServletContext().getRealPath("/");
 		List<ProductType> productTypes = productTypeDao.findAll();
 		productService.addProductInBasketToModel(request, model);
 		model.addAttribute("productTypes", productTypes);
-		ProductBean bean = new ProductBean();
+		ProductBean bean = new ProductBean(realPath);
 		model.addAttribute("products", bean.getProductBeanList(productDao.findByRating()));
 		return "/HTML/index";
 	}

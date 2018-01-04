@@ -46,8 +46,6 @@
 			</div>
 		</div>
 		<!-- end of header -->
-
-
 		<!-- ********s************** -->
 		<!--     I N T R O          -->
 		<!-- ********************** -->
@@ -79,7 +77,7 @@
 						<span class="s_selected">${orderingType[0].name}</span>
 						<ul class="s_options" style="display: none;">
 							<c:forEach items="${orderingType}" var="ot">
-								<li><a href="/myshop/product/type/${productType.id }/page/1/?sort=${ot }">${ot.name}</a></li>
+								<li><a href="/myshop/product/type/${productType.id }/page/1/?sort=${ot}">${ot.name}</a></li>
 							</c:forEach>											
 						</ul>
 					</div>
@@ -210,6 +208,7 @@
 			</div>
 		</div>
 		<!-- end of shop info -->
+	</div>
 	</div>
 </body>
 </html>

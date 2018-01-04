@@ -38,12 +38,12 @@ public class MailService {
 
 		try {
 			Message message = new MimeMessage(session);
-		
+
 			message.setFrom(new InternetAddress("shopmalyatko@gmail.com"));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("shopmalyatko@gmail.com"));
 			message.setSubject("Малятко");
-			//message.setText("dd");
-			//message.setText(buildMessage(order));
+			// message.setText("dd");
+			// message.setText(buildMessage(order));
 			message.setContent(buildMessage(order), "text/html; charset=utf-8");
 			Transport.send(message);
 			System.out.println("Done");
@@ -57,12 +57,15 @@ public class MailService {
 		List<ProductInOrder> productsInOrder = productInOrderDao.findByOrder(order);
 		StringBuilder email = new StringBuilder();
 		if (productsInOrder != null) {
-			
-			email.append("<h2>Нова заявка # ").append(order.getId()).append(" від ").append(order.getLastName()).append(" ")
-					.append(order.getFirstName()).append(" \n").append("Кількість товарів #" + order.getQuantity())
-					.append(" на суму ").append(order.getAmount()).append("</h2>");
+
+			email.append("<h2>Нова заявка # ").append(order.getId()).append(" від ").append(order.getLastName())
+					.append(" ").append(order.getFirstName()).append(" \n")
+					.append("Кількість товарів #" + order.getQuantity()).append(" на суму ").append(order.getAmount())
+					.append(" телефон #").append(order.getTelephone()).append(" mail ").append(order.getEmail())
+					.append(" тип доставки ").append(order.getDeliveryType().getName()).append("</h2>");
 			email.append("<table style='border:2px solid black; width: 100%;'>");
-			email.append("<tr style = 'background-color: #e699ff; color: white;'>Продукт<th>Кількість</th><th>Ціна</th><th>Сума</th></tr>");
+			email.append(
+					"<tr style = 'background-color: #e699ff; color: white;'>Продукт<th>Кількість</th><th>Ціна</th><th>Сума</th></tr>");
 			email.append("<tbody>");
 			for (ProductInOrder productInOrder : productsInOrder) {
 				email.append("<tr><td>").append(productInOrder.getProduct().getName()).append("</td><td>")
