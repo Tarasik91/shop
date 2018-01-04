@@ -55,10 +55,9 @@ public class ProductService {
 			if (productIds.size() > 0) {
 				products = productDao.findByIds(productIds);
 			}
-			
 		}
 		ProductInBasket pib = new ProductInBasket();
-		model.addAttribute("PIB", pib.getProductInBasketBeanList(products, map));
+		model.addAttribute("PIB", pib.getProductInBasketBeanList(products, map, null));
 		model.addAttribute("totalPrice", totalPrice);
 		model.addAttribute("totalCount", count);
 	}

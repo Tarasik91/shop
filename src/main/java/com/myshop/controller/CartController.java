@@ -62,7 +62,8 @@ public class CartController {
 		Set<Integer> productIds = map.keySet();		
 		List<Product> products = productDao.findByIds(productIds);
 		session.setAttribute("productIdsMap", map);
-		return pib.getProductInBasketBeanList(products, map);
+		String realPath = request.getSession().getServletContext().getRealPath("/");
+		return pib.getProductInBasketBeanList(products, map, realPath);
 	}
 
 	@RequestMapping(path = "/removeProduct", method = RequestMethod.GET)
@@ -87,13 +88,14 @@ public class CartController {
 			products = productDao.findByIds(productIds);
 		}
 		session.setAttribute("productIdsMap", map);
-		return pib.getProductInBasketBeanList(products, map);
+		String realPath = request.getSession().getServletContext().getRealPath("/");
+		return pib.getProductInBasketBeanList(products, map, realPath);
 	}
 
 	@RequestMapping(path = "/view", method = RequestMethod.GET)
 	public String getProductFromBasket(Model uiModel, HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
-		
+		String realPath = request.getSession().getServletContext().getRealPath("/");
 		List<Product> products = new ArrayList<>();
 		Map<Integer, Integer> map = (Map<Integer, Integer>) session.getAttribute("productIdsMap");
 		ProductInBasket pib = new ProductInBasket();
@@ -103,7 +105,7 @@ public class CartController {
 				products = productDao.findByIds(productIds);		
 			}		
 		}
-		uiModel.addAttribute("PIB", pib.getProductInBasketBeanList(products, map));
+		uiModel.addAttribute("PIB", pib.getProductInBasketBeanList(products, map, realPath));
 		List<ProductType> productTypes = productTypeDAO.findAll();
 		uiModel.addAttribute("productTypes", productTypes);
 		return "HTML/cart";

@@ -27,14 +27,14 @@ public class ProductInBasket {
 		this.totalPrice = totalPrice;
 	}
 
-	public ProductInBasket  getProductInBasketBeanList(List<Product> list, Map<Integer, Integer> map) {
+	public ProductInBasket  getProductInBasketBeanList(List<Product> list, Map<Integer, Integer> map, String urlPath) {
 		List<ProductBean> results = new ArrayList<>();
 		double tp = 0;
 		int tc = 0;
 		if (list == null)
 			return null;
 		for (Product product : list) {
-			ProductBean bean = new ProductBean();
+			ProductBean bean = new ProductBean(urlPath);
 			bean.setId(product.getId());
 			bean.setQuantity(map.get(product.getId()));
 			bean.setSellingPrice(product.getSellingPrice());

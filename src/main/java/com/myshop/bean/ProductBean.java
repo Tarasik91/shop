@@ -137,7 +137,6 @@ public class ProductBean {
 			return null;
 		for (Product product : list) {
 			ProductBean bean = getProductBean(product, realPath);
-		
 			results.add(bean);
 		}
 		return results;
