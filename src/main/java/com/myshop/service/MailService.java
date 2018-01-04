@@ -62,7 +62,11 @@ public class MailService {
 					.append(" ").append(order.getFirstName()).append(" \n")
 					.append("Кількість товарів #" + order.getQuantity()).append(" на суму ").append(order.getAmount())
 					.append(" телефон #").append(order.getTelephone()).append(" mail ").append(order.getEmail())
-					.append(" тип доставки ").append(order.getDeliveryType().getName()).append("</h2>");
+					.append(" тип доставки ").append(order.getDeliveryType().getName());
+			if (order.getComment() != null) {
+				email.append(" коментар ").append(order.getComment());
+			}
+			email.append("</h2>");
 			email.append("<table style='border:2px solid black; width: 100%;'>");
 			email.append(
 					"<tr style = 'background-color: #e699ff; color: white;'>Продукт<th>Кількість</th><th>Ціна</th><th>Сума</th></tr>");

@@ -46,6 +46,7 @@ public class Order {
 	@Enumerated
 	private PaidType paidType;
 	private String newMailAddress;
+	private String comment;
 	public int getId() {
 		return id;
 	}
@@ -148,6 +149,13 @@ public class Order {
 
 	public void setPaidType(PaidType paidType) {
 		this.paidType = paidType;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}	
-	
 }

@@ -48,7 +48,11 @@ public class OrderController {
 			@RequestParam("lastName") String lastName,
 			@RequestParam("email") String email,
 			@RequestParam("telephone") String telephone,
-			@RequestParam(value = "address", required=false) String address){
+			@RequestParam(value = "address", required=false) String address,
+			@RequestParam(value = "deliveryType", required=false) DeliveryType deliveryType,
+			@RequestParam(value = "paidType", required=false) PaidType paidType,
+			@RequestParam(value = "newMailAddress", required=false) String newMailAddress,
+			@RequestParam(value = "comment", required=false) String comment){
 		HttpSession session = request.getSession(true);
 		List<ProductInBasketBean> products = (List<ProductInBasketBean>) session.getAttribute("productList");
 		session.getAttributeNames();
@@ -69,8 +73,11 @@ public class OrderController {
 		order.setTelephone(telephone);
 		order.setQuantity(quantity);
 		order.setAmount(amount);
+		order.setNewMailAddress(newMailAddress);
+		order.setPaidType(paidType);
+		order.setDeliveryType(deliveryType);
+		order.setComment(comment);
 		orderDao.add(order);		
-		
 		productInOrderDao.addProducts(getProducts(products, order));
 		request.getSession().setAttribute("productIdsMap", null);
 		request.getSession().setAttribute("productList", null);

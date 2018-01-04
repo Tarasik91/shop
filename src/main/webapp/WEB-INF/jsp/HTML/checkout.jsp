@@ -134,7 +134,7 @@
 							коментарі
 						</h3>
 						<div class="s_row_3 clearfix">
-							<textarea rows="2" style="width: 99%;"></textarea>
+							<textarea name = "comment" rows="2" style="width: 99%;"></textarea>
 						</div>
 
 					</div>
