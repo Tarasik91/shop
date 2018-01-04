@@ -77,7 +77,7 @@ public class ProductDaoImpl implements ProductDao {
 	public PaginationModel<Product> findByTypeAndPage(int typeId, int pageNumber, OrderingType orderingType) {
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("FROM Product item WHERE item.productType.id = :type ORDER BY "  + orderingType.sql);
-		query.setFirstResult(pageNumber);
+		query.setFirstResult(pageNumber-1);
 		query.setMaxResults(Constants.PAGE_SIZE);
 		query.setParameter("type", typeId);
 	
