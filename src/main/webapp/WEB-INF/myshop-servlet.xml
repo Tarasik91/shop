@@ -64,11 +64,11 @@
 			<props>
 				<prop key="hibernate.dialect">${jdbc.dialect}</prop>
 				<prop key="hibernate.show_sql">true</prop>
-				<prop key="initialPoolSize"> 3</prop>
+			<!-- 	<prop key="initialPoolSize"> 3</prop>
 				<prop key="minPoolSize">6</prop>
 				<prop key="maxPoolSize">25</prop>
 				<prop key="acquireIncrement">3 </prop>
-				<prop key="maxStatements">0</prop>
+				<prop key="maxStatements">0</prop> -->
 			</props>
 		</property>
 	</bean>
