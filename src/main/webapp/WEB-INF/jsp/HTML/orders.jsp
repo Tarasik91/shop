@@ -16,18 +16,14 @@
 <!--[if lt IE 9]>
 <link rel="stylesheet" type="text/css" href="stylesheet/ie.css" media="screen" />
 <![endif]-->
-
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
-	
 <script type="text/javascript" src="<c:url value="/resources/js/shoppica.js"/>" ></script>
-
 </head>
 
 <body class="s_layout_fixed">
-
 <div id="wrapper"> 
   
   <!-- ********************** --> 
@@ -35,9 +31,6 @@
   <!-- ********************** -->
   <div id="header" class="container_12">
     <div class="grid_12">
-    
-    	<a id="site_logo" href="/">Shoppica store - Premium e-Commerce Theme</a> 
-
 		<%@include file="block/links.jsp"%>
 				
     </div>
@@ -52,7 +45,7 @@
     <div id="intro_wrap">
       <div class="container_12">
         <div id="breadcrumbs" class="grid_12">
-          <a href="/">Home</a>
+          <a href="/myshop">Home</a>
            &gt; <a href="/myshop/order/cards">Заявки</a>
         </div>
         <h1>Заявки</h1>
@@ -60,7 +53,6 @@
     </div>
   </div>
   <!-- end of intro -->
-  
   
   <!-- ********************** --> 
   <!--      C O N T E N T     --> 
@@ -83,13 +75,15 @@
                </dd>
               <dt>Покупець:</dt>
               <dd>${order.lastName } ${order.firstName }</dd>
+              <dt>Адреса:</dt>
+              <dd>${order.address}</dd>
               <dt>Продуктів:</dt>
               <dd>${order.quantity}</dd>
             </dl>
             <span class="clear border_eee"></span>
             <br />
             <p class="s_total left"><span class="s_currency s_before">$</span>${order.amount }</p>
-            <a href="${pageContext.request.contextPath}/invoice/view/${order.id}" class="s_main_color right"><strong>View</strong></a>
+            <a href="${pageContext.request.contextPath}/invoice/view/${order.id}" class="s_main_color right"><strong>Переглянути</strong></a>
           </div>
         </div>
  		</c:forEach>
@@ -113,9 +107,6 @@
 				</div>
 			</div>
 		</div>
-  
 </div>
-
-
 </body>
 </html>

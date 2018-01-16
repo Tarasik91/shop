@@ -2,6 +2,8 @@ package com.myshop.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,7 @@ import com.myshop.dao.ProductTypeDao;
 import com.myshop.model.Order;
 import com.myshop.model.ProductInOrder;
 import com.myshop.model.enums.OrderStatus;
+import com.myshop.util.Utils;
 
 @Controller
 @RequestMapping("/invoice")
@@ -30,13 +33,16 @@ public class InvoiceController {
 	private ProductTypeDao productTypeDao;
 	
 	@RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
-	public String view(@PathVariable("id") int id, Model model){
+	public String view(@PathVariable("id") int id, Model model, HttpServletRequest request){
 		Order order  = orderDao.findById(id);
 		List<ProductInOrder> products = productInOrderDao.findByOrder(order);
 		model.addAttribute("order", order);
 		model.addAttribute("orderStatuses", OrderStatus.values());
 		model.addAttribute("productTypes", productTypeDao.findAll());
 		model.addAttribute("products", products);
+		if (Utils.isAdmin(request)) {
+			model.addAttribute("isAdmin", true);
+		}
 		return "HTML/invoice";
 	}
 	

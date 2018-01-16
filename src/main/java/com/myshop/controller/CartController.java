@@ -31,6 +31,7 @@ import com.myshop.model.ProductInBasket;
 import com.myshop.model.ProductType;
 import com.myshop.model.enums.DeliveryType;
 import com.myshop.model.enums.PaidType;
+import com.myshop.util.Utils;
 
 @Controller
 @RequestMapping("/cart")
@@ -93,7 +94,7 @@ public class CartController {
 	}
 
 	@RequestMapping(path = "/view", method = RequestMethod.GET)
-	public String getProductFromBasket(Model uiModel, HttpServletRequest request, HttpServletResponse response) {
+	public String getProductFromBasket(Model model, HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		String realPath = request.getSession().getServletContext().getRealPath("/");
 		List<Product> products = new ArrayList<>();
@@ -105,9 +106,12 @@ public class CartController {
 				products = productDao.findByIds(productIds);		
 			}		
 		}
-		uiModel.addAttribute("PIB", pib.getProductInBasketBeanList(products, map, realPath));
+		model.addAttribute("PIB", pib.getProductInBasketBeanList(products, map, realPath));
 		List<ProductType> productTypes = productTypeDAO.findAll();
-		uiModel.addAttribute("productTypes", productTypes);
+		model.addAttribute("productTypes", productTypes);
+		if(Utils.isAdmin(request)){
+			model.addAttribute("isAdmin", true);
+		}
 		return "HTML/cart";
 	}
 	

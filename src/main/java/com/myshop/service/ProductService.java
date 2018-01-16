@@ -27,6 +27,7 @@ import com.myshop.model.enums.OrderingType;
 import com.myshop.model.enums.Size;
 import com.myshop.util.PaginationModel;
 import com.myshop.util.PaginationUtil;
+import com.myshop.util.Utils;
 
 public class ProductService {
 	@Autowired
@@ -60,19 +61,22 @@ public class ProductService {
 		model.addAttribute("totalPrice", totalPrice);
 		model.addAttribute("totalCount", count);
 	}
-	public Model viewProduct(Model uiModel, HttpServletRequest request, int id, String realPath) {
+	public Model viewProduct(Model model, HttpServletRequest request, int id, String realPath) {
 		ProductBean bean = new ProductBean();
-		addProductInBasketToModel(request, uiModel);
+		addProductInBasketToModel(request, model);
 		Product product = productDao.findById(id);
 		Map<String, Integer> quantityMap = getQuantity(product);
 		List<ProductType> productTypes = productTypeDao.findAll();
-		uiModel.addAttribute("productTypes", productTypes);
-		uiModel.addAttribute("quantity", quantityMap);
-		uiModel.addAttribute("colors", Color.values());
-		uiModel.addAttribute("sizes", Size.values());
-		uiModel.addAttribute("product", bean.getProductBean(product, realPath));
-		uiModel.addAttribute("comments", productCommentDao.findByProduct(product));
-		return uiModel;
+		model.addAttribute("productTypes", productTypes);
+		model.addAttribute("quantity", quantityMap);
+		model.addAttribute("colors", Color.values());
+		model.addAttribute("sizes", Size.values());
+		model.addAttribute("product", bean.getProductBean(product, realPath));
+		model.addAttribute("comments", productCommentDao.findByProduct(product));
+		if (Utils.isAdmin(request)) {
+			model.addAttribute("isAdmin", true);
+		}
+		return model;
 	}
 
 	public Map<String, Integer> getQuantity(Product product) {

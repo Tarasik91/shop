@@ -15,6 +15,7 @@ import com.myshop.dao.ProductDao;
 import com.myshop.dao.ProductTypeDao;
 import com.myshop.model.ProductType;
 import com.myshop.service.ProductService;
+import com.myshop.util.Utils;
 
 @Controller
 public class MainPageController {
@@ -36,6 +37,9 @@ public class MainPageController {
 		model.addAttribute("productTypes", productTypes);
 		ProductBean bean = new ProductBean(realPath);
 		model.addAttribute("products", bean.getProductBeanList(productDao.findByRating()));
+		if (Utils.isAdmin(request)) {
+			model.addAttribute("isAdmin", true);
+		}
 		return "/HTML/index";
 	}
 }

@@ -46,8 +46,6 @@
 		<div id="header" class="container_12">
 			<div class="grid_12">
 
-				<a id="site_logo" href="index.html">Shoppica store - Premium
-					e-Commerce Theme</a>
 				<%@include file="block/links.jsp"%>
 				<%@include file="block/header.jsp"%>
 			</div>

@@ -46,24 +46,16 @@
 		
 </head>
 <body class="s_layout_fixed">
-
 	<div id="wrapper">
-
 		<!-- ********************** -->
 		<!--      H E A D E R       -->
 		<!-- ********************** -->
 		<div id="header" class="container_12">
 			<div class="grid_12">
-
-				<a id="site_logo" href="index.html">Shoppica store - Premium
-					e-Commerce Theme</a>
-
 				<%@include file="block/links.jsp"%>
-
 			</div>
 		</div>
 		<!-- end of header -->
-
 
 		<!-- ********************** -->
 		<!--      C O N T E N T     -->

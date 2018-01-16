@@ -51,7 +51,7 @@ public class ProductAdminController {
 	private boolean isAdmin(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		Object isAdmin = session.getAttribute("isAdminLogined");
-		if (isAdmin == null && !(Boolean) isAdmin)
+		if (isAdmin == null || !(Boolean) isAdmin)
 			return false;
 		return true;
 	}
@@ -144,7 +144,6 @@ public class ProductAdminController {
 	public String add(Model uiModel) {
 		uiModel.addAttribute("isAdmin", true);
 		ProductBean bean = new ProductBean();
-	
 		uiModel.addAttribute("product", bean);
 		uiModel.addAttribute("sizes", Size.values());
 		uiModel.addAttribute("colors", Color.values());
@@ -168,8 +167,6 @@ public class ProductAdminController {
 			}
 			File fileOnTomact = new File(rpath + id + "\\" + file.getName() + iden + ".jpg");
 			ImageIO.write(src, "jpg", fileOnTomact);
-			// Save the id you have used to create the file name in the DB. You
-			// can retrieve the image in future with the ID.
 			return file.getName() + iden + ".jpg";
 		}
 		return "";

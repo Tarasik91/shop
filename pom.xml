@@ -9,10 +9,9 @@
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
+				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
-				<executions>
+						<!-- 	<executions>
                 <execution>
                     <phase>package</phase>
                     <configuration>
@@ -26,7 +25,7 @@
                         </artifactItems>
                     </configuration>
                 </execution>
-                </executions>
+                </executions> -->
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>

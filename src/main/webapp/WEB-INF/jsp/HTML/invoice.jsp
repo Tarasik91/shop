@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en" xml:lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Малятко</title>
@@ -11,7 +11,6 @@
 <meta name="description" content="My Store" />
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/stylesheet/960.css" />" media="all" />
- 
 
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/stylesheet/screen.css" />"
@@ -39,11 +38,8 @@
 	src="<c:url value="/resources/js/shoppica.js"/>"></script>
 <script type="text/javascript"
 	src="<c:url value="/resources/js/admin.js"/>"></script>
-
 </head>
-
 <body class="s_layout_fixed">
-
 <div id="wrapper"> 
   
   <!-- ********************** --> 
@@ -51,13 +47,8 @@
   <!-- ********************** --> 
   <div id="header" class="container_12">
     <div class="grid_12">
-    
-    	<a id="site_logo" href="index.html">Shoppica store - Premium e-Commerce Theme</a> 
       <%@include file="block/links.jsp"%>	
       <%@include file="block/header.jsp"%>
-      
-      
-           
     </div>
   </div>
   <!-- end of header --> 
@@ -82,12 +73,9 @@
   <!-- end of intro -->
 
   <div id="content" class="container_16">
-
     <div id="order_details" class="grid_16">
 	  <input type = "hidden" id = "orderId" value="${order.id}" />
-
       <div class="s_order clearfix">
-
         <p class="s_id"><span class="s_999">Номер заявки</span> <span class="s_main_color">#${order.id}</span></p>
         <span class="clear border_eee"></span>
         <dl class="grid_5 alpha clearfix">
@@ -103,8 +91,10 @@
           <dd>${order.address }</dd>
           <dt>Відділ нової пошти</dt>
           <dd>${order.newMailAddress }</dd>
+          <dt>Коментар</dt>
+          <dd>${order.comment}</dd>
           <dt>Статус</dt>
-          
+      
           <dd><select name="status" id = "orderStatus">
 				<c:forEach items="${orderStatuses}" var="status">
 					<option ${order.status == status ? "selected" :""}  
