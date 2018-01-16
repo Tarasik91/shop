@@ -107,7 +107,6 @@ public class ProductBean {
 		if (id != 0) {
 			String path = realPath + "resources\\image\\";
 			File directory = new File(path + id);
-			System.out.println("directory = " + directory.toString());
 			if (directory.exists() && directory.list().length != 0) {
 				return "\\resources\\image\\" + id + "\\" + directory.list()[0];
 			}
@@ -120,12 +119,13 @@ public class ProductBean {
 		if (id != 0) {
 			String path = realPath + "\\resources\\image\\";
 			File directory = new File(path + id);
-			
 			if (directory.exists() && directory.list().length != 0) {
 				String[] files = directory.list();
 				for (String file : files) {
 					results.add("\\resources\\image\\" + id + "\\" + file);
 				}
+			}else{
+				results.add("/resources/image/images.png");	
 			}
 		}
 		return results;
@@ -143,7 +143,6 @@ public class ProductBean {
 	}
 	
 	public ProductBean getProductBean(Product product, String realPath) {
-		
 		ProductBean bean = new ProductBean();
 		bean.setRealPath(realPath);
 		bean.setId(product.getId());

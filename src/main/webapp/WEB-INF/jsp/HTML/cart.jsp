@@ -75,7 +75,7 @@
 	           <td><a href="#"  class = "remove-product"><img src="${pageContext.request.contextPath}/resources/images/trash1600.png" width="24" height="24" /></a></td>
 	           <td valign="middle"><a href="/myshop/product/view/<c:out value="${p.id}"/>" ><img src="${pageContext.request.contextPath}${p.photoPath}" width="60" height="60" alt="Pana" /></a></td> 
 	           <td valign="middle">${p.name}</td>
-	           <td class= "quantity" valign="middle"><input type="number"  min="1"  onkeypress="return event.charCode >= 48" size="3" value = "${p.quantity }"/></td>
+	           <td class= "quantity" valign="middle"><input type="number"  onkeypress="return event.charCode >= 48" size="3" min="1" max="999" value = "${p.quantity }"/></td>
 	           <td class = "sellingPrice" valign="middle">${p.sellingPrice}</td>
 	           <td class = "totalPrice align_right"  >${p.totalPrice}</td>
            </tr>
