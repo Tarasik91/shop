@@ -78,20 +78,20 @@
 					<div>
 						<div class="grid_6 alpha">
 							<div class="s_row_2 clearfix">
-								<label>Імя: *</label> <input name="firstName" type="text" required id = "firstName"  title="Це поле обовязкове"/>
+								<label>Імя: *</label> <input maxlength = 45 name="firstName" type="text" required id = "firstName"  title="Це поле обовязкове"/>
 							</div>
 							<div class="s_row_2 clearfix">
-								<label>Прізвище: *</label> <input name="lastName"  title="Це поле обовязкове" required type="text"/>
+								<label>Прізвище: *</label> <input maxlength = 45 name="lastName"  title="Це поле обовязкове" required type="text"/>
 							</div>
 							<div class="s_row_2 clearfix">
 								<label>E-Mail: *</label> 
-								<input name="email" required type="email" title="Це поле обовязкове"/>
+								<input name="email" maxlength = 80 required type="email" title="Це поле обовязкове"/>
 							</div>
 	
 						</div>
 						<div class="grid_6 omega">
 							<div class="s_row_2 clearfix">
-								<label>Телефон: *</label> <input required name="telephone" title="Це поле обовязкове" type="text"
+								<label>Телефон: *</label> <input required name="telephone" title="Це поле обовязкове" type="text" maxlength = 13
 								 />
 							</div>
 						
