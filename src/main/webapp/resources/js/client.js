@@ -4,12 +4,12 @@ $(document).ready(function() {
 		 submitHandler: function(form) {
 				$.ajax({
 					 type: "POST",          
-			         url: '/myshop/order/save',
+			         url: '/order/save',
 			         data : $('#checkout_form').serialize(),
 					}).done(function() {
 						$.toast({text : 'Ваша заявка оформлена. Дякуємо за покупку', position: 'top-left', icon: 'success', hideAfter: 2000});
 		            	 setTimeout(function() {
-		            		 window.location = '/myshop';
+		            		 window.location = '/';
 		            		}, 2000);
 					});
 		 }

@@ -44,8 +44,8 @@
     <div id="intro_wrap">
       <div class="container_12">
         <div id="breadcrumbs" class="grid_12">
-          <a href="/myshop/">Головна</a>
-           &gt; <a href="/myshop/cart/view">Корзина</a>
+          <a href="/">Головна</a>
+           &gt; <a href="/cart/view">Корзина</a>
         </div>
         <h1>Корзина</h1>
       </div>
@@ -73,7 +73,7 @@
            <c:forEach items="${PIB.productBeans}" var="p">
            <tr class="even product-quantity-cart-row" data-id = "${p.id}">
 	           <td><a href="#"  class = "remove-product"><img src="${pageContext.request.contextPath}/resources/images/trash1600.png" width="24" height="24" /></a></td>
-	           <td valign="middle"><a href="/myshop/product/view/<c:out value="${p.id}"/>" ><img src="${pageContext.request.contextPath}${p.photoPath}" width="60" height="60" alt="Pana" /></a></td> 
+	           <td valign="middle"><a href="/product/view/<c:out value="${p.id}"/>" ><img src="${pageContext.request.contextPath}${p.photoPath}" width="60" height="60" alt="Pana" /></a></td> 
 	           <td valign="middle">${p.name}</td>
 	           <td class= "quantity" valign="middle"><input type="number"  onkeypress="return event.charCode >= 48" size="3" min="1" max="999" value = "${p.quantity }"/></td>
 	           <td class = "sellingPrice" valign="middle">${p.sellingPrice}</td>

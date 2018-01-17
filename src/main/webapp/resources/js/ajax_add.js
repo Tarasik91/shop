@@ -9,7 +9,7 @@ $(document).ready(function () {
 		var raiting;
 		$.ajax({
 			type: "POST",          
-	        url: '/myshop/product/comment/save',
+	        url: '/product/comment/save',
 	        data : {comment:comment, autor:autor, productId:productId},
 			}).done(function(data) {
 				console.log(data)
@@ -32,7 +32,7 @@ $(document).ready(function () {
 		$.ajax({
             type: 'get',
             dataType: "json",
-            url: '/myshop/cart/removeProduct',
+            url: '/cart/removeProduct',
             data :{productId : productId},
             success: function (count) {    
             	$('#cart_menu div.s_cart_holder').html(count + " items" );
@@ -57,10 +57,10 @@ $(document).ready(function () {
             type: 'post',
             dataType: "json",
             contentType: 'application/json',
-            url: '/myshop/cart/change',
+            url: '/cart/change',
             data :JSON.stringify(products),
             success: function (count) {    
-            	 window.location = '/myshop/cart/checkout';
+            	 window.location = '/cart/checkout';
             },
         })
     });
@@ -87,7 +87,7 @@ $(document).ready(function () {
         $.ajax({
             type: 'get',
             dataType: "json",
-            url: '/myshop/cart/removeProduct',
+            url: '/cart/removeProduct',
             data :{productId : productId},
             success: function (data) {    
             	$('#cart_menu div.s_cart_holder').html(data.count + " items" );
@@ -104,7 +104,7 @@ $(document).ready(function () {
             $.ajax({
                 type: 'get',
                 dataType: "json",
-                url: '/myshop/cart/removeProduct',
+                url: '/cart/removeProduct',
                 data :{productId : productId},
                 success: function (count) {    
                 	$('#cart_menu div.s_cart_holder').html(count + " items" );
@@ -116,7 +116,7 @@ $(document).ready(function () {
     function addToCart(data, image){
         $.ajax({
             type: 'post',
-            url: '/myshop/cart/addProduct',
+            url: '/cart/addProduct',
             dataType: "json",
             data: data,
             success: function (data) {
@@ -125,7 +125,7 @@ $(document).ready(function () {
             	var divElement = "<div class='s_cart_item'>";
             	$.each( products, function( key, value ) {
             		var aElement = "<a  class='s_button_remove' data-product-id = '" + value.id +"' >&nbsp;</a>";
-            		var spanElement = "<span class='block'>" + value.quantity + "x " +  "<a href='/myshop/product/view/" +value.id + "'>"+ 
+            		var spanElement = "<span class='block'>" + value.quantity + "x " +  "<a href='/product/view/" +value.id + "'>"+ 
             		value.name +"</a></span>";
             		html = html  + divElement + aElement + spanElement +  "</div>"
             	});

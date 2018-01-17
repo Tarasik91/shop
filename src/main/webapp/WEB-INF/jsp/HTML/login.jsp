@@ -90,7 +90,7 @@ $(document).ready(function () {
         <h2 class="s_title_1"><span class="s_secondary_color">Returning</span> Customer</h2>
 
         <div class="clear"></div>
-        <form id="login" action="/myshop/login" method="post">
+        <form id="login" action="${pageContext.request.contextPath}/login" method="post">
           <div class="s_row_3 clearfix">
             I am a returning customer.<br />
             <br />

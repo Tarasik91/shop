@@ -4,7 +4,7 @@ $(document).ready(function() {
 		e.preventDefault();
 		var self = $(this);
 		var name = $(this).attr("data-product-name");
-		var url  = "/myshop/admin/product/removePhoto";
+		var url  = "/admin/product/removePhoto";
 		$.ajax({
 			type : "POST",
 			data:{photoName:name},
@@ -29,7 +29,7 @@ $(document).ready(function() {
 	
 	$("#create").validate({
 		submitHandler: function(form) {		
-		var url = "/myshop/admin/product/addProduct";
+		var url = "/admin/product/addProduct";
 		$.ajax({
 			 type: "POST",
 			 url: url,
@@ -37,7 +37,7 @@ $(document).ready(function() {
 			}).done(function(data) {
 				$.toast({text : 'Збережено', position: 'top-left', icon: 'success', hideAfter: 2000});				
 				 setTimeout(function() {
-					 window.location = '/myshop/admin/product/edit/' + data;
+					 window.location = '/admin/product/edit/' + data;
             		}, 2000);
 			});
 		}
@@ -66,7 +66,7 @@ $(document).ready(function() {
 				+ colorOptions
 				+ "</select></td>"
 				+ "<td> <input  class = 'product-edit' name='quantity' type='number'  /></td>"
-				+ "<td><a href ='#' class = 'addQuantityitem'><img src='/myshop/resources/images/add.png' alt='Add'> </img></a></td></tr>";
+				+ "<td><a href ='#' class = 'addQuantityitem'><img src='/resources/images/add.png' alt='Add'> </img></a></td></tr>";
 		$("#productQuantityTable tbody")
 				.append(tr);
 	});
@@ -74,7 +74,7 @@ $(document).ready(function() {
 	$("#orderStatus").change(function(){
 		var orderId = $("#orderId").val();
 		var statusId =  $(this).find('option:selected').val();
-		var url = "/myshop/invoice/changeStatus";
+		var url = "/invoice/changeStatus";
 		$.ajax({
 			data:{statusId:statusId, orderId:orderId}, 
 			type: "POST",  

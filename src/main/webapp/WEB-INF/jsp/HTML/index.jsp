@@ -49,7 +49,7 @@
           
           <c:forEach items="${products}" var="product">         				
 	          <div style="position: relative; display: none;">
-	            <h2><a href="/myshop/product/view/<c:out value="${product.id}" />">${product.name }</a></h2>
+	            <h2><a href="${pageContext.request.contextPath}/product/view/<c:out value="${product.id}" />">${product.name }</a></h2>
 	            <p class="s_desc">${product.description} </p>
 	            <div class="s_price_holder">
 	              <p class="s_price"> $ ${product.sellingPrice }</p>
@@ -62,7 +62,7 @@
         <div id="product_intro_preview">
           <div class="slides_container">
           <c:forEach items="${products}" var="product">  
-            <div class="slideItem" style="display: none"><a href="/myshop/product/view/<c:out value="${product.id}" />"><img src="${pageContext.request.contextPath}/${product.photoPath}" alt="" /></a></div>
+            <div class="slideItem" style="display: none"><a href="${pageContext.request.contextPath}/product/view/<c:out value="${product.id}" />"><img src="${pageContext.request.contextPath}/${product.photoPath}" alt="" /></a></div>
            </c:forEach>
             
           </div>

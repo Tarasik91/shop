@@ -202,7 +202,7 @@
 											event.preventDefault();
 											// Get form
 											var form = $('#fileUploadForm')[0];
-											var url = "/myshop/admin/product/addPhoto";
+											var url = "/admin/product/addPhoto";
 											// Create an FormData object
 											var data = new FormData(form);
 											// If you want to add an extra field for the FormData
@@ -220,8 +220,8 @@
 														cache : false,
 														timeout : 600000,
 														success : function(data) {
-															var photo = '<ul class="s_thumbs clearfix"> <a id="product_image_preview" rel="prettyPhoto[gallery]" href="/myshop/resources/image/'+ ${product.id} + '/' + data + '" >'
-																	+ '<img id="image" src="/myshop/resources/image/'+ ${product.id} + '/' +data + '" ></a></ul>';
+															var photo = '<ul class="s_thumbs clearfix"> <a id="product_image_preview" rel="prettyPhoto[gallery]" href="/resources/image/'+ ${product.id} + '/' + data + '" >'
+																	+ '<img id="image" src="/resources/image/'+ ${product.id} + '/' +data + '" ></a></ul>';
 															$("#photoHolder")
 																	.append(
 																			photo)

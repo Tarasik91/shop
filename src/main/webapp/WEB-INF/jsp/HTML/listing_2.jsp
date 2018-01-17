@@ -51,7 +51,7 @@
 			<div id="intro_wrap">
 				<div class="container_12">
 					<div id="breadcrumbs" class="grid_12">
-						<a href="/myshop/">Home</a> &gt; <a href="">${productType.name }</a>
+						<a href="${pageContext.request.contextPath}/">Home</a> &gt; <a href="">${productType.name }</a>
 					</div>
 					<h1>${productType.name }</h1>
 				</div>
@@ -59,7 +59,7 @@
 		</div>
 		<!-- end of intro -->
 		<c:if test="${isAdmin}">
-			<a href="/myshop/admin/product/add"
+			<a href="${pageContext.request.contextPath}/admin/product/add"
 				class="s_button_1 s_main_color_bgr left"><span class="s_text">Добавити
 					продукт</span></a>
 		</c:if>
@@ -74,7 +74,7 @@
 						<span class="s_selected">${orderingType[0].name}</span>
 						<ul class="s_options" style="display: none;">
 							<c:forEach items="${orderingType}" var="ot">
-								<li><a href="/myshop/product/type/${productType.id }/page/1/?sort=${ot}">${ot.name}</a></li>
+								<li><a href="${pageContext.request.contextPath}/product/type/${productType.id }/page/1/?sort=${ot}">${ot.name}</a></li>
 							</c:forEach>											
 						</ul>
 					</div>
@@ -86,11 +86,11 @@
 							<c:if test="${not empty p}">
 								<div class="s_item grid_3">
 									<a class="s_thumb"
-										href="/myshop/product/view/<c:out value="${p.id}" />"> 
+										href="${pageContext.request.contextPath}/product/view/<c:out value="${p.id}" />"> 
 										<img id = "image" src="${pageContext.request.contextPath}${p.photoPath}"
 										title="${p.name}" alt="${p.name}" /></a>
 									<h3>
-										<a href="/myshop/product/view/<c:out value="${p.id}" />">${p.name}</a>
+										<a href="${pageContext.request.contextPath}/product/view/<c:out value="${p.id}" />">${p.name}</a>
 									</h3>
 									<p class="s_price">
 										<span class="s_currency s_before"></span>${p.sellingPrice } ₴
@@ -102,11 +102,11 @@
 								-->
 									<c:if test="${isAdmin}">
 										<a class="s_button_add_to_cart"
-											href="/myshop/admin/product/edit/<c:out value="${p.id}" />"> 
+											href="${pageContext.request.contextPath}/admin/product/edit/<c:out value="${p.id}" />"> 
 											<span class="s_icon"></span>Редагувати									
 										</a>
 										<a class="s_button_add_to_cart"
-											href="/myshop/admin/product/delete/<c:out value="${p.id}" />"> 
+											href="${pageContext.request.contextPath}/admin/product/delete/<c:out value="${p.id}" />"> 
 											<span class="s_icon"></span>Видалити									
 										</a>
 									</c:if>
@@ -131,12 +131,12 @@
   							<b>${i }</b>
   						</c:when>
   						<c:otherwise>	        
-				        	 <a href="/myshop/product/type/${productType.id }/page/<c:out value = "${i}"/>">
+				        	 <a href="${pageContext.request.contextPath}/product/type/${productType.id }/page/<c:out value = "${i}"/>">
 				        	 	<c:out value = "${i}"/></a>	
 				        </c:otherwise>
 				     </c:choose>
 			      	</c:forEach>
-						<a href="/myshop/product/type/${productType.id }/page/${paginationModel.lastPageNumber}">&gt;|</a>
+						<a href="${pageContext.request.contextPath}/product/type/${productType.id }/page/${paginationModel.lastPageNumber}">&gt;|</a>
 					</div>
 					<div class="results">Showing ${paginationModel.minPageNumber } to ${paginationModel.maxPageNumber }  of ${paginationModel.lastPageNumber} </div>
 				</div>
@@ -151,7 +151,7 @@
 								<div class="s_cart_item">
 									<a class="s_button_remove" data-product-id="${product.id}">&nbsp;</a>
 									<span class="block">${product.quantity }x <a
-										href="/myshop/product/view/${product.id }">${product.name }</a></span>
+										href="${pageContext.request.contextPath}/product/view/${product.id }">${product.name }</a></span>
 								</div>
 							</c:forEach>
 						</div>
@@ -170,7 +170,7 @@
 						<span class="clear s_mb_15"></span>
 						<div class="align_center clearfix">
 							<a class="s_button_1 s_secondary_color_bgr s_ml_0"
-								href="/myshop/cart/view"><span class="s_text">Корзина</span></a>
+								href="${pageContext.request.contextPath}/cart/view"><span class="s_text">Корзина</span></a>
 						</div>
 					</div>
 					</div>

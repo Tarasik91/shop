@@ -45,8 +45,8 @@
     <div id="intro_wrap">
       <div class="container_12">
         <div id="breadcrumbs" class="grid_12">
-          <a href="/myshop">Home</a>
-           &gt; <a href="/myshop/order/cards">Заявки</a>
+          <a href="${pageContext.request.contextPath}">Home</a>
+           &gt; <a href="${pageContext.request.contextPath}/order/cards">Заявки</a>
         </div>
         <h1>Заявки</h1>
       </div>
