@@ -183,7 +183,7 @@
 						<ul>
 							<c:forEach items="${productTypes }" var="productType">
 								<li><a
-									href="/myshop/product/productCategory/${productType.id }">${productType.name }</a></li>
+									href="/product/productCategory/${productType.id }">${productType.name }</a></li>
 							</c:forEach>
 						</ul>
 					</div>

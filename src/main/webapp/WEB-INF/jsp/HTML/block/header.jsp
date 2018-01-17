@@ -5,7 +5,7 @@
 	<ul>
 		<li id="menu_home"><a href="${pageContext.request.contextPath}">Home</a></li>
 		<c:forEach items="${productTypes }" var="productType">
-			<li><a href="/myshop/product/type/${productType.id }/page/1">${productType.name }</a>
+			<li><a href="/product/type/${productType.id }/page/1">${productType.name }</a>
 			</li>
 		</c:forEach>
 	</ul>
