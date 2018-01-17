@@ -5,7 +5,7 @@
 					e-Commerce Theme</a>
 <div id="system_navigation" class="s_nav">
 	<ul class="s_list_1 clearfix">
-	  	<li><a href="${pageContext.request.contextPath}">Головна</a></li>
+	  	<li><a href="${pageContext.request.contextPath}/">Головна</a></li>
 		<li><a href="${pageContext.request.contextPath}/product/type/1/page/1">Продукти</a></li>
 		<li><a href="${pageContext.request.contextPath}/cart/view">Корзина</a></li>
 		<c:if test="${isAdmin}">
