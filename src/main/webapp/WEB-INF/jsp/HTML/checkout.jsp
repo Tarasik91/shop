@@ -19,7 +19,7 @@
 	href="<c:url value="/resources/stylesheet/color.css" />" media="screen" />
 
 <script type="text/javascript"
-	src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3mL-PMg7WlumTwF9tbbNBHS0YiJlQlMc&callback=initMap">
