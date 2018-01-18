@@ -94,7 +94,7 @@
 								value="${product.sellingPrice }" /></td>
 							<td><select class = "product-edit" name="productType">
 									<c:forEach items="${productTypes }" var="productType">
-          						<option value="${productType.id}">${productType.name}</option>
+          								<option <c:if test="${productType.id == product.productType}"> selected = "selected" </c:if>   value="${productType.id}">${productType.name}</option>
 									</c:forEach>
 							</select></td>
 							<td></td>

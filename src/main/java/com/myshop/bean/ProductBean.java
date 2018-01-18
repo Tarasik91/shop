@@ -151,6 +151,7 @@ public class ProductBean {
 		bean.setPurchasePrice(product.getPurchasePrice());
 		bean.setSellingPrice(product.getSellingPrice());
 		bean.setDescription(product.getDescription());
+		bean.setProductType(product.getProductType().getId());
 		return bean;
 	}
 
