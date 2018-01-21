@@ -2,7 +2,7 @@ package com.myshop.model.enums;
 
 public enum PaidType {
 	CASH("Готівка"),
-	BANK("банк");
+	BANK("на карту приватбанку");
 	
 	
 	public String name;

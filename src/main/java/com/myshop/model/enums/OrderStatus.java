@@ -1,9 +1,9 @@
 package com.myshop.model.enums;
 
 public enum OrderStatus {
-	CANCEL("Відмінений"),
-	IN_WAIT("В очікуванні"),
-	CLOSED("Закритий");
+	Done("Виконано"),
+	IN_processing("В обробці"),
+	Sent("Відправлено");
 	
 	public String name;
 
