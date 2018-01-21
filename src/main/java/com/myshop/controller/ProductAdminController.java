@@ -155,19 +155,25 @@ public class ProductAdminController {
 	@ResponseBody
 	public String handleFormUpload(HttpServletRequest context, @RequestParam("productId") int id,
 			@RequestParam("photo") MultipartFile file) throws IOException {
+		long iden = 0;
 		if (!file.isEmpty()) {
+			try{
 			System.out.println("file is nit empty");
 			String rpath = context.getRealPath("/");
 			rpath = rpath + "resources\\image\\";
 			BufferedImage src = ImageIO.read(new ByteArrayInputStream(file.getBytes()));
-			long iden = System.currentTimeMillis();
+			iden = System.currentTimeMillis();
 			File dirTomcat = new File(rpath + id);
 			System.out.println("dir tomcat" + dirTomcat);
 			if (!dirTomcat.exists()) {
+				
 				dirTomcat.mkdirs();
 			}
 			File fileOnTomact = new File(rpath + id + "\\" + file.getName() + iden + ".jpg");
 			ImageIO.write(src, "jpg", fileOnTomact);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 			return file.getName() + iden + ".jpg";
 		}
 		return "";
