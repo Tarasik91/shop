@@ -21,14 +21,6 @@ public class ProductTypeController {
 	@Autowired
 	private ProductTypeDao productTypeDao;
 
-	@RequestMapping(value = "/addProductType", method = RequestMethod.POST)
-	public String updateProduct(@RequestParam("name") String name) {
-		ProductType product = new ProductType();
-		product.setName(name);
-		productTypeDao.add(product);
-		return "redirect:viewtype";
-	}
-
 	@RequestMapping("/view")
 	public String viewType(Model model, HttpServletRequest request) {
 		if (Utils.isAdmin(request)) {

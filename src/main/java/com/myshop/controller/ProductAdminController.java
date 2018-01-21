@@ -137,7 +137,7 @@ public class ProductAdminController {
 			uiModel.addAttribute("quantity", quantityMap);
 			uiModel.addAttribute("product", bean.getProductBean(product, realPath));
 			uiModel.addAttribute("productTypes", productTypeDao.findAll());
-			return "/HTML/admin-product";
+			return "admin-product";
 		}
 		return "redirect:/product/type/1/page/1";
 	}
@@ -150,7 +150,7 @@ public class ProductAdminController {
 		uiModel.addAttribute("sizes", Size.values());
 		uiModel.addAttribute("colors", Color.values());
 		uiModel.addAttribute("productTypes", productTypeDao.findAll());
-		return "/HTML/admin-product";
+		return "admin-product";
 	}
 
 	@RequestMapping(value = "/addPhoto", method = RequestMethod.POST)
