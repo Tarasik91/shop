@@ -43,7 +43,7 @@ public class InvoiceController {
 		if (Utils.isAdmin(request)) {
 			model.addAttribute("isAdmin", true);
 		}
-		return "HTML/invoice";
+		return "invoice";
 	}
 	
 	@RequestMapping(value = "/changeStatus", method = RequestMethod.POST)

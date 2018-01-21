@@ -13,7 +13,7 @@ public class LoginController {
 	
 	@RequestMapping("/admin-page")
 	public String getLoginPage(){
-		return "/HTML/login";
+		return "login";
 	}
 	
 	@RequestMapping(value ="/login", method = RequestMethod.POST)
@@ -34,7 +34,7 @@ public class LoginController {
 	public String logout( HttpServletRequest servletRequest){
 		 HttpSession session = servletRequest.getSession(); 
 		 session.setAttribute("isAdminLogined", null);
-		 return "/HTML/login";
+		 return "/login";
 	}
 	
 	

@@ -2656,3 +2656,27 @@ body.s_layout_fixed #wrapper {
     display:inline-block;
     padding: 0 0 0 0px;
  }
+ 
+ 
+ #product-types {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#product-types td, #product-types th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#product-types tr:nth-child(even){background-color: #f2f2f2;}
+
+#product-types tr:hover {background-color: #f0b3ff;}
+
+#product-types th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #f0b3ff;
+    color: white;
+}

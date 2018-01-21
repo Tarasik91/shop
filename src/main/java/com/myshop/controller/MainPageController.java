@@ -40,6 +40,6 @@ public class MainPageController {
 		if (Utils.isAdmin(request)) {
 			model.addAttribute("isAdmin", true);
 		}
-		return "/HTML/index";
+		return "index";
 	}
 }

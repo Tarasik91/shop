@@ -22,9 +22,9 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
 	@Override
 	public void add(ProductType product) {
 		Session session = sessionFactory.getCurrentSession();
-		if (product.getId() ==0){
+		if (product.getId() == 0) {
 			session.save(product);
-		}else{
+		} else {
 			session.update(product);
 			session.flush();
 		}
@@ -34,8 +34,8 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
 	@Transactional
 	public List<ProductType> findAll() {
 		Session session = sessionFactory.getCurrentSession();
-		List<ProductType> result =(List<ProductType>) session.createQuery("from ProductType").list();
-	
+		List<ProductType> result = (List<ProductType>) session.createQuery("from ProductType").list();
+
 		return result;
 	}
 

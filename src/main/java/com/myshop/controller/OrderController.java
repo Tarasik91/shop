@@ -107,7 +107,7 @@ public class OrderController {
 			model.addAttribute("statuses", OrderStatus.values());
 			model.addAttribute("localDateTimeFormat", new SimpleDateFormat("yyyy-MM-dd'T'hh:mm"));
 			model.addAttribute("isAdmin", true);
-			return "/HTML/orders";
+			return "orders";
 		} else {
 			return "redirect:/myshop";
 		}

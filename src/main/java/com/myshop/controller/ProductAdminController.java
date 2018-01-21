@@ -56,6 +56,7 @@ public class ProductAdminController {
 		return true;
 	}
 
+	
 	@RequestMapping(value = "/removePhoto", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public MessageBody removePhoto(@RequestParam("photoName") String name, HttpServletRequest request) {
@@ -121,6 +122,7 @@ public class ProductAdminController {
 		return "redirect:/product/type/" + product.getProductType().getId() + "/page/1";
 	}
 
+	
 	@RequestMapping("/edit/{id}")
 	public String findById(@PathVariable("id") int id, Model uiModel, HttpServletRequest request) {
 		String realPath = request.getSession().getServletContext().getRealPath("/");
@@ -137,7 +139,7 @@ public class ProductAdminController {
 			uiModel.addAttribute("productTypes", productTypeDao.findAll());
 			return "/HTML/admin-product";
 		}
-		return "redirect:/product/type/" + bean.getProductType() + "/page/1";
+		return "redirect:/product/type/1/page/1";
 	}
 
 	@RequestMapping("/add")

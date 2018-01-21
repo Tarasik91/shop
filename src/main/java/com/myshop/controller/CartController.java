@@ -112,7 +112,7 @@ public class CartController {
 		if(Utils.isAdmin(request)){
 			model.addAttribute("isAdmin", true);
 		}
-		return "HTML/cart";
+		return "cart";
 	}
 	
 	@RequestMapping(value = "/change",  headers = "Accept=application/json",  method = RequestMethod.POST)
@@ -137,6 +137,6 @@ public class CartController {
 	    response.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
 	    response.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
 		
-		return "HTML/checkout";
+		return "checkout";
 	}
 }

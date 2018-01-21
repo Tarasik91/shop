@@ -9,6 +9,7 @@
 		<li><a href="${pageContext.request.contextPath}/product/type/1/page/1">Продукти</a></li>
 		<li><a href="${pageContext.request.contextPath}/cart/view">Корзина</a></li>
 		<c:if test="${isAdmin}">
+			<li><a href="${pageContext.request.contextPath}/product-type/view">Тип Продукта</a></li>
 			<li><a href="${pageContext.request.contextPath}/order/cards">Заявки</a></li>
 			<li><a href="${pageContext.request.contextPath}/logout">Log out</a></li>
 		</c:if>

@@ -36,7 +36,7 @@ public class ProductController {
 	public String viewProduct(@PathVariable("id") int id, Model uiModel, HttpServletRequest request) {
 		String realPath = request.getSession().getServletContext().getRealPath("/");
 		service.viewProduct(uiModel, request, id, realPath);
-		return "HTML/product";
+		return "product";
 	}
 
 	@RequestMapping(value = "/type/{id}/page/{pageNumber}", method = RequestMethod.GET)
@@ -45,7 +45,7 @@ public class ProductController {
 			@RequestParam(required = false, defaultValue = "PRICE_A", name = "sort") OrderingType sortType) {
 		String realPath = request.getSession().getServletContext().getRealPath("/");
 		service.viewByTypeAndPage(request, uiModel, categoryId, pageNumber, sortType, realPath);
-		return "HTML/listing_2";
+		return "listing_2";
 	}
 
 	@RequestMapping(value = "/comment/save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
